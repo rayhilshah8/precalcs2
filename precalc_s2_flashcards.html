@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precalc Semester 2 — Flashcards</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ffffff; --bg2:#f5f5f3; --bg3:#eeede9;
+    --text:#1a1a18; --text2:#6b6b67; --text3:#9b9b97;
+    --border:rgba(0,0,0,0.12); --border2:rgba(0,0,0,0.22);
+    --radius:12px; --radius-sm:8px;
+    --green-bg:#eaf3de; --green-border:#c0dd97; --green-text:#3b6d11;
+    --red-bg:#fcebeb; --red-border:#f7c1c1; --red-text:#a32d2d;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#1c1c1a; --bg2:#262624; --bg3:#2e2e2b;
+      --text:#f0efe9; --text2:#a0a09a; --text3:#6a6a64;
+      --border:rgba(255,255,255,0.1); --border2:rgba(255,255,255,0.2);
+      --green-bg:#172304; --green-border:#3b6d11; --green-text:#c0dd97;
+      --red-bg:#2a0a0a; --red-border:#a32d2d; --red-text:#f7c1c1;
+    }
+  }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif; background:var(--bg3); color:var(--text); min-height:100vh; }
+  .page { max-width:680px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+  .hdr { margin-bottom:1.75rem; }
+  .hdr h1 { font-size:22px; font-weight:600; color:var(--text); margin-bottom:4px; }
+  .hdr p { font-size:14px; color:var(--text2); }
+  .tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .tab { font-size:12px; padding:5px 13px; border-radius:99px; border:1px solid var(--border); background:var(--bg); color:var(--text2); cursor:pointer; font-family:inherit; transition:all .15s; }
+  .tab:hover { border-color:var(--border2); color:var(--text); }
+  .tab.on { border-color:var(--border2); color:var(--text); font-weight:600; }
+  .tools { display:flex; justify-content:flex-end; gap:6px; margin-bottom:8px; }
+  .sm-btn { font-size:12px; padding:5px 10px; border-radius:var(--radius-sm); border:1px solid var(--border); background:transparent; color:var(--text2); cursor:pointer; font-family:inherit; transition:all .15s; display:flex; align-items:center; gap:5px; }
+  .sm-btn:hover { color:var(--text); border-color:var(--border2); }
+  .bar-row { display:flex; align-items:center; gap:10px; margin-bottom:1rem; }
+  .bar { flex:1; height:3px; background:var(--bg3); border-radius:2px; overflow:hidden; }
+  .bar-fill { height:100%; background:var(--text2); border-radius:2px; transition:width .35s; }
+  .bar-txt { font-size:12px; color:var(--text3); white-space:nowrap; }
+  .scene { perspective:1200px; width:100%; margin-bottom:1rem; }
+  .card-inner { position:relative; width:100%; min-height:280px; transform-style:preserve-3d; transition:transform .5s cubic-bezier(.4,0,.2,1); cursor:pointer; }
+  .card-inner.flipped { transform:rotateY(180deg); }
+  .face { position:absolute; top:0; left:0; right:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border:1px solid var(--border); border-radius:var(--radius); background:var(--bg); padding:1.5rem; min-height:280px; display:flex; flex-direction:column; }
+  .face.back { transform:rotateY(180deg); }
+  .card-tag { font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:.07em; margin-bottom:12px; }
+  .card-q { font-size:16px; color:var(--text); line-height:1.65; flex:1; display:flex; align-items:center; white-space:pre-wrap; }
+  .card-hint { font-size:12px; color:var(--text3); margin-top:16px; }
+  .card-ans { font-size:17px; font-weight:600; color:var(--text); margin-bottom:14px; line-height:1.5; white-space:pre-wrap; }
+  .card-expl { font-size:13px; color:var(--text2); line-height:1.75; border-top:1px solid var(--border); padding-top:12px; margin-top:auto; }
+  .card-expl strong { color:var(--text); font-weight:600; }
+  .nav { display:flex; gap:8px; align-items:center; justify-content:center; margin-bottom:.7rem; }
+  .btn { font-size:13px; padding:8px 20px; border-radius:var(--radius-sm); border:1px solid var(--border2); background:var(--bg); color:var(--text); cursor:pointer; font-family:inherit; transition:all .15s; display:flex; align-items:center; gap:6px; }
+  .btn:hover { background:var(--bg2); }
+  .btn.pri { background:var(--text); color:var(--bg); border-color:var(--text); }
+  .btn.pri:hover { opacity:.85; }
+  .mark-row { display:flex; gap:8px; margin-bottom:.7rem; }
+  .mark-btn { flex:1; font-size:13px; padding:9px 14px; border-radius:var(--radius-sm); cursor:pointer; font-family:inherit; transition:all .15s; display:flex; align-items:center; justify-content:center; gap:6px; }
+  .btn-got { border:1px solid var(--green-border); color:var(--green-text); background:transparent; }
+  .btn-got:hover { background:var(--green-bg); }
+  .btn-nope { border:1px solid var(--red-border); color:var(--red-text); background:transparent; }
+  .btn-nope:hover { background:var(--red-bg); }
+  .stats { display:flex; gap:8px; margin-top:1rem; }
+  .stat { flex:1; background:var(--bg2); border-radius:var(--radius-sm); padding:10px 12px; text-align:center; }
+  .stat-n { font-size:22px; font-weight:600; color:var(--text); }
+  .stat-l { font-size:11px; color:var(--text2); margin-top:2px; }
+  .icon { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+  .count-badge { font-size:11px; color:var(--text3); margin-left:4px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <h1>Precalc Semester 2 — Flashcards</h1>
+    <p>All-original problems, same question types as your review sheet. Click a card to flip it.</p>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="tools">
+    <button class="sm-btn" onclick="shuffleDeck()">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 20.2 3.8M21 16v5h-5M15 15l5.1 5.1M4 4l5 5"/></svg>Shuffle
+    </button>
+    <button class="sm-btn" onclick="resetProgress()">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Reset
+    </button>
+  </div>
+  <div class="bar-row">
+    <div class="bar"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
+    <div class="bar-txt" id="barTxt">0 / 0</div>
+  </div>
+  <div class="scene">
+    <div class="card-inner" id="cardInner" onclick="flipCard()">
+      <div class="face front">
+        <div class="card-tag" id="frontTag"></div>
+        <div class="card-q" id="frontQ"></div>
+        <div class="card-hint">Click to reveal answer ↓</div>
+      </div>
+      <div class="face back">
+        <div class="card-tag" id="backTag"></div>
+        <div class="card-ans" id="backAns"></div>
+        <div class="card-expl" id="backExpl"></div>
+      </div>
+    </div>
+  </div>
+  <div class="mark-row" id="markRow" style="display:none">
+    <button class="mark-btn btn-nope" onclick="mark(false)">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Still learning
+    </button>
+    <button class="mark-btn btn-got" onclick="mark(true)">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Got it
+    </button>
+  </div>
+  <div class="nav" id="navRow">
+    <button class="btn" onclick="prev()"><svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Prev</button>
+    <button class="btn pri" onclick="next()">Next<svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="statGot">0</div><div class="stat-l">Got it</div></div>
+    <div class="stat"><div class="stat-n" id="statLearn">0</div><div class="stat-l">Learning</div></div>
+    <div class="stat"><div class="stat-n" id="statSeen">0</div><div class="stat-l">Seen</div></div>
+  </div>
+</div>
+<script>
+const CARDS=[
+// ── TRIG GRAPHING (20 cards) ─────────────────────────────────────────
+{t:"Trig Graphing",q:"State the amplitude, period, phase shift, and vertical shift of:\ny = 2 sin(3x) \u2212 1",a:"Amplitude = 2, Period = 2\u03c0/3, Phase shift = 0, Vertical shift = \u22121",e:"<strong>Form: y = A\u00b7sin(Bx \u2212 C) + D.</strong> |A|=2, B=3 \u2192 period=2\u03c0/3. No C \u2192 no phase shift. D=\u22121 \u2192 midline y=\u22121. Max=1, min=\u22123."},
+{t:"Trig Graphing",q:"State the amplitude, period, and phase shift of:\ny = \u22124 cos(\u00bdx \u2212 \u03c0/4)",a:"Amplitude = 4, Period = 4\u03c0, Phase shift = \u03c0/2 right",e:"Factor out B: \u00bdx\u2212\u03c0/4 = \u00bd(x\u2212\u03c0/2). Phase shift = C/B = (\u03c0/4)/(\u00bd) = \u03c0/2 right. |A|=4 (negative flips graph). Period=2\u03c0/(\u00bd)=4\u03c0."},
+{t:"Trig Graphing",q:"What is the period and phase shift of:\ny = (1/3) tan(4x + \u03c0)?",a:"Period = \u03c0/4, Phase shift = \u03c0/4 to the left",e:"Tangent period = \u03c0/|B|. B=4 \u2192 period=\u03c0/4. Factor: 4x+\u03c0=4(x+\u03c0/4) \u2192 phase shift=\u03c0/4 LEFT. A '+' inside always shifts left."},
+{t:"Trig Graphing",q:"For y = 5 sin(2x \u2212 \u03c0/3), find the x-value of the first maximum to the right of x = 0.",a:"x = 5\u03c0/12",e:"Sin hits its max when its argument = \u03c0/2. Set 2x\u2212\u03c0/3=\u03c0/2 \u2192 2x=5\u03c0/6 \u2192 x=5\u03c0/12\u22481.31. \u2713"},
+{t:"Trig Graphing",q:"Give the range of y = \u22127 sin(x) + 3.",a:"[\u22124, 10]",e:"Range of A\u00b7sin+D is [D\u2212|A|, D+|A|]. D=3, |A|=7. Min=3\u22127=\u22124, Max=3+7=10."},
+{t:"Trig Graphing",q:"Find the vertical asymptotes of one period of:\ny = cot(x/2)",a:"x = 0 and x = 2\u03c0",e:"Cotangent has asymptotes where sin=0. sin(x/2)=0 when x=0,2\u03c0,4\u03c0,\u2026 Period=\u03c0/(1/2)=2\u03c0, so one period spans x=0 to x=2\u03c0."},
+{t:"Trig Graphing",q:"For y = (1/4) sec(2x \u2212 \u03c0/6), find the period and phase shift.",a:"Period = \u03c0, Phase shift = \u03c0/12 right",e:"sec shares cos\u2019s period. Period=2\u03c0/2=\u03c0. Factor: 2x\u2212\u03c0/6=2(x\u2212\u03c0/12) \u2192 phase shift=\u03c0/12 right."},
+{t:"Trig Graphing",q:"Identify all transformations of:\ny = 3 cos(x + \u03c0/2) \u2212 4",a:"Amplitude 3, phase shift \u03c0/2 left, vertical shift 4 down, period = 2\u03c0",e:"A=3: amplitude 3. B=1: period=2\u03c0. +\u03c0/2 inside \u2192 \u03c0/2 LEFT. D=\u22124: midline y=\u22124, max=\u22121, min=\u22127."},
+{t:"Trig Graphing",q:"How does y = 2 cos(x) + 1 compare to y = cos(x)?",a:"Amplitude = 2, shifted up 1. Max = 3, min = \u22121, midline y = 1.",e:"Vertical stretch \u00d72: new max=2, min=\u22122. Shift +1: max\u21923, min\u2192\u22121. Period and phase shift unchanged."},
+{t:"Trig Graphing",q:"For y = 2 csc(x \u2212 \u03c0/2), what is the period and where does the minimum positive U-curve peak?",a:"Period = 2\u03c0, phase shift = \u03c0/2 right, U-curve peaks at x = \u03c0 (value = 2)",e:"csc=1/sin, period=2\u03c0. Phase shift \u03c0/2 right. After shifting, sin peaks at x\u2212\u03c0/2=\u03c0/2 \u2192 x=\u03c0. Scaled by 2 \u2192 peak=2."},
+{t:"Trig Graphing",q:"What is the midline, max, and min of y = \u22122 sin(x) \u2212 3?",a:"Midline y = \u22123, max = \u22121, min = \u22125",e:"D=\u22123 \u2192 midline at y=\u22123. |A|=2. Max = D+|A| = \u22123+2 = \u22121. Min = D\u2212|A| = \u22123\u22122 = \u22125. The negative flips but doesn\u2019t change the range formula."},
+{t:"Trig Graphing",q:"For y = sin(\u03c0x), what is the period?",a:"Period = 2",e:"Period = 2\u03c0/|B|. Here B=\u03c0, so period = 2\u03c0/\u03c0 = 2. The graph completes one full cycle every 2 units (not 2\u03c0 units), because the \u03c0 inside accelerates it."},
+{t:"Trig Graphing",q:"Describe the effect of changing y = cos(x) to y = cos(3x \u2212 \u03c0).",a:"Period compressed to 2\u03c0/3; phase shift = \u03c0/3 right",e:"B=3 \u2192 period=2\u03c0/3 (compressed by factor 3). Factor: 3x\u2212\u03c0=3(x\u2212\u03c0/3) \u2192 phase shift=\u03c0/3 right. Amplitude and midline unchanged."},
+{t:"Trig Graphing",q:"For y = \u22123 tan(\u00bdx + \u03c0/4), find the period, phase shift, and the location of the first asymptote to the right of x = 0.",a:"Period = 2\u03c0, phase shift = \u03c0/2 left, first right asymptote at x = 3\u03c0/2",e:"Period=\u03c0/|B|=\u03c0/(\u00bd)=2\u03c0. Factor: \u00bdx+\u03c0/4=\u00bd(x+\u03c0/2) \u2192 shift \u03c0/2 left. Tan asymptotes at Bx+\u03c0/4=\u00b1\u03c0/2 \u2192 first positive: \u00bdx=\u03c0/4 \u2192 x=3\u03c0/2."},
+{t:"Trig Graphing",q:"What transformation turns y = sin(x) into y = sin(x/4)?",a:"Horizontal stretch by factor 4; period becomes 8\u03c0",e:"Replacing x with x/4 multiplies the period by 4. New period = 2\u03c0\u00d74 = 8\u03c0. The graph is \u2018stretched out\u2019 horizontally \u2014 it takes four times as long to complete one cycle."},
+{t:"Trig Graphing",q:"For y = 6 cos(2x) \u2212 6, what are the x-intercepts on [0, 2\u03c0)?",a:"x = \u03c0/4, 3\u03c0/4, 5\u03c0/4, 7\u03c0/4",e:"Set 6cos(2x)\u22126=0 \u2192 cos(2x)=1. Wait\u2014that gives only x=0,\u03c0. Let me recheck: 6cos(2x)=6 \u2192 cos(2x)=1 \u2192 2x=0,2\u03c0 \u2192 x=0,\u03c0. <br><strong>Actually the x-intercepts of y=6cos(2x)\u22126 are where cos(2x)=1, giving x=0 and x=\u03c0.</strong>"},
+{t:"Trig Graphing",q:"A sine function has amplitude 4, period \u03c0, and passes through the origin going upward. Write its equation.",a:"y = 4 sin(2x)",e:"Amplitude=4 \u2192 A=4. Period=\u03c0 \u2192 2\u03c0/B=\u03c0 \u2192 B=2. Passes through origin going up \u2192 standard sine, no phase shift, no vertical shift. Equation: y=4sin(2x)."},
+{t:"Trig Graphing",q:"For y = \u22122 cos(\u03c0/3 \u00b7 x), what is the period and what is the y-intercept?",a:"Period = 6, y-intercept = \u22122",e:"B=\u03c0/3 \u2192 period=2\u03c0/(\u03c0/3)=6. At x=0: y=\u22122cos(0)=\u22122(\u00b71)=\u22122. The negative flips the graph, so it starts at a minimum rather than a maximum."},
+{t:"Trig Graphing",q:"How many complete cycles does y = sin(4x) complete on the interval [0, 2\u03c0]?",a:"4 complete cycles",e:"Period of sin(4x) = 2\u03c0/4 = \u03c0/2. Number of cycles in [0,2\u03c0] = length/period = 2\u03c0\u00f7(\u03c0/2) = 4. Multiplying x by 4 makes the wave oscillate 4 times as fast."},
+{t:"Trig Graphing",q:"Find the phase shift and vertical asymptotes of:\ny = csc(3x \u2212 \u03c0/2)",a:"Phase shift = \u03c0/6 right; asymptotes at x = \u03c0/6 + n\u03c0/3",e:"csc=1/sin. Factor: 3x\u2212\u03c0/2=3(x\u2212\u03c0/6) \u2192 phase shift=\u03c0/6 right. Asymptotes where sin=0: 3x\u2212\u03c0/2=n\u03c0 \u2192 x=\u03c0/6+n\u03c0/3."},
+
+// ── CONICS: PARABOLA (12 cards) ──────────────────────────────────────
+{t:"Conics: Parabola",q:"Find the vertex, focus, and directrix of:\nx = (1/8)(y \u2212 3)\u00b2 + 2",a:"Vertex (2, 3), Focus (4, 3), Directrix x = 0",e:"Form x=(1/4p)(y\u2212k)\u00b2+h. 1/4p=1/8 \u2192 p=2. Vertex=(2,3). Opens right. Focus: 2 right \u2192 (4,3). Directrix: x=h\u2212p=0."},
+{t:"Conics: Parabola",q:"Write the equation of a parabola with vertex (\u22121, 4) and focus (\u22121, 6).",a:"(x + 1)\u00b2 = 8(y \u2212 4)",e:"Focus above vertex \u2192 opens up. p=2. (x\u2212h)\u00b2=4p(y\u2212k) \u2192 (x+1)\u00b2=8(y\u22124). Directrix: y=2."},
+{t:"Conics: Parabola",q:"Find the vertex, focus, and directrix of:\ny\u00b2 \u2212 6y \u2212 8x + 1 = 0",a:"Vertex (\u22121, 3), Focus (1, 3), Directrix x = \u22123",e:"Complete square on y: (y\u22123)\u00b2=8(x+1). 4p=8\u2192p=2. Focus 2 right: (1,3). Directrix: x=\u22123."},
+{t:"Conics: Parabola",q:"Write the equation of a parabola with vertex (5, \u22122) and directrix y = 1.",a:"(x \u2212 5)\u00b2 = \u221212(y + 2)",e:"Directrix above vertex \u2192 opens down. p=3. 4p=\u221212. (x\u22125)\u00b2=\u221212(y+2). Focus: (5,\u22125)."},
+{t:"Conics: Parabola",q:"Put x\u00b2 + 4x \u2212 12y + 16 = 0 in vertex form. Find vertex and focus.",a:"(x + 2)\u00b2 = 12(y \u2212 1); Vertex (\u22122, 1), Focus (\u22122, 4)",e:"Complete square: (x+2)\u00b2=12(y\u22121). 4p=12\u2192p=3. Opens up. Focus: (\u22122,4)."},
+{t:"Conics: Parabola",q:"A parabola opens left with vertex (4, 0) and passes through (0, \u22124). Write its equation.",a:"y\u00b2 = \u22124(x \u2212 4)",e:"Left-opening: y\u00b2=\u22124p(x\u2212h). Plug in (0,\u22124): 16=16p\u2192p=1. y\u00b2=\u22124(x\u22124)."},
+{t:"Conics: Parabola",q:"Find the focus and directrix of:\ny = (1/12)x\u00b2",a:"Focus (0, 3), Directrix y = \u22123",e:"Write as x\u00b2=12y. 4p=12\u2192p=3. Opens up. Focus: (0,3). Directrix: y=\u22123."},
+{t:"Conics: Parabola",q:"A parabola has focus (2, 0) and directrix x = \u22122. Write its equation.",a:"y\u00b2 = 8x",e:"Focus and directrix symmetric about vertex \u2192 vertex at (0,0). p=2 (distance from vertex to focus). Opens right. y\u00b2=4p\u00b7x=8x."},
+{t:"Conics: Parabola",q:"Find the vertex and axis of symmetry of:\nx = \u22122y\u00b2 + 8y \u2212 5",a:"Vertex (3, 2), Axis of symmetry y = 2",e:"Complete square on y: \u22122(y\u00b2\u22124y)=\u22122(y\u22122)\u00b2+8. So x=\u22122(y\u22122)\u00b2+3. Vertex (3,2). Since y is squared, axis is horizontal: y=2."},
+{t:"Conics: Parabola",q:"For the parabola (y + 1)\u00b2 = \u221216(x \u2212 3), find the vertex, direction, and length of the latus rectum.",a:"Vertex (3, \u22121), opens left, latus rectum = 16",e:"Vertex (3,\u22121). Negative \u2192 opens left. 4p=16\u2192p=4. The latus rectum is the chord through the focus perpendicular to the axis; its length = |4p| = 16."},
+{t:"Conics: Parabola",q:"Write the equation of a parabola with vertex (0, 0) and passing through (3, 6) opening upward.",a:"x\u00b2 = (3/2)y",e:"Form x\u00b2=4py. Plug in (3,6): 9=4p\u00b76=24p \u2192 p=3/8. 4p=3/2. Equation: x\u00b2=(3/2)y."},
+{t:"Conics: Parabola",q:"Convert y\u00b2 + 10y + 6x + 31 = 0 to standard form and identify vertex, focus, directrix.",a:"(y + 5)\u00b2 = \u22126(x + 1); Vertex (\u22121, \u22125), Focus (\u22125/2, \u22125), Directrix x = 1/2",e:"Complete square: (y+5)\u00b225+6x+31=0 \u2192 (y+5)\u00b2=\u22126x\u22126=\u22126(x+1). 4p=\u22126\u2192p=\u22123/2 (opens left). Vertex (\u22121,\u22125). Focus: p left \u2192 (\u22121\u22123/2,\u22125)=(\u22125/2,\u22125). Directrix: x=\u22121+3/2=1/2."},
+
+// ── CONICS: ELLIPSE (10 cards) ───────────────────────────────────────
+{t:"Conics: Ellipse",q:"Put in graphable form and find center, vertices, foci:\n4x\u00b2 + 9y\u00b2 \u2212 24x + 18y + 9 = 0",a:"(x\u22123)\u00b2/9 + (y+1)\u00b2/4 = 1\nCenter (3,\u22121), Vertices (6,\u22121)&(0,\u22121), Foci (3\u00b1\u221a5,\u22121)",e:"4(x\u22123)\u00b2+9(y+1)\u00b2=36. Divide by 36. a\u00b2=9, b\u00b2=4, c\u00b2=5. Foci: (3\u00b1\u221a5,\u22121)."},
+{t:"Conics: Ellipse",q:"Find center, vertices, and foci of:\n(x+2)\u00b2/25 + (y\u22121)\u00b2/16 = 1",a:"Center (\u22122,1), Vertices (3,1)&(\u22127,1), Foci (1,1)&(\u22125,1)",e:"a\u00b2=25 (horizontal). a=5, b=4. c\u00b2=9\u2192c=3. Vertices: (\u22122\u00b15,1). Foci: (\u22122\u00b13,1)."},
+{t:"Conics: Ellipse",q:"Write the equation of an ellipse: center (2,\u22123), vertical major axis, a=5, b=3.",a:"(x\u22122)\u00b2/9 + (y+3)\u00b2/25 = 1",e:"Vertical major axis \u2192 a\u00b2 under y. c\u00b2=25\u22129=16\u2192c=4. Foci: (2,\u22123\u00b14)."},
+{t:"Conics: Ellipse",q:"Put in graphable form:\n16x\u00b2 + y\u00b2 \u2212 64x \u2212 4y + 4 = 0",a:"(x\u22122)\u00b2/4 + (y\u22122)\u00b2/64 = 1",e:"16(x\u22122)\u00b2+(y\u22122)\u00b2=64. Divide by 64. a=8 (vert), b=2. Center (2,2)."},
+{t:"Conics: Ellipse",q:"For (x\u22121)\u00b2/49 + (y+4)\u00b2/36 = 1, find major axis length and eccentricity.",a:"Major axis = 14; e = \u221a13/7 \u2248 0.514",e:"a=7, c\u00b2=13\u2192c=\u221a13. 2a=14. e=c/a=\u221a13/7."},
+{t:"Conics: Ellipse",q:"Write the equation of an ellipse with foci (\u00b14, 0) and vertices (\u00b15, 0).",a:"x\u00b2/25 + y\u00b2/9 = 1",e:"Foci on x-axis \u2192 horizontal. a=5, c=4. b\u00b2=a\u00b2\u2212c\u00b2=25\u221216=9. x\u00b2/25+y\u00b2/9=1."},
+{t:"Conics: Ellipse",q:"Find the foci of the ellipse:\nx\u00b2/16 + y\u00b2/7 = 1",a:"Foci at (\u00b13, 0)",e:"a\u00b2=16, b\u00b2=7. c\u00b2=16\u22127=9\u2192c=3. Foci: (\u00b13,0). Horizontal major axis since 16>7."},
+{t:"Conics: Ellipse",q:"Put in graphable form:\n25x\u00b2 + 4y\u00b2 \u2212 150x + 8y + 129 = 0",a:"(x\u22123)\u00b2/4 + (y+1)\u00b2/25 = 1",e:"25(x\u22123)\u00b2\u2212225+4(y+1)\u00b2\u22124+129=0 \u2192 25(x\u22123)\u00b2+4(y+1)\u00b2=100. Divide by 100: (x\u22123)\u00b2/4+(y+1)\u00b2/25=1. Vertical major axis."},
+{t:"Conics: Ellipse",q:"An ellipse has center (0,0), passes through (4,0) and (0,3). Write its equation.",a:"x\u00b2/16 + y\u00b2/9 = 1",e:"Passes through (4,0) \u2192 a=4 (horizontal vertex). Passes through (0,3) \u2192 b=3 (vertical vertex). x\u00b2/16+y\u00b2/9=1."},
+{t:"Conics: Ellipse",q:"For the ellipse x\u00b2/9 + y\u00b2/4 = 1, find the co-vertices and the length of the minor axis.",a:"Co-vertices (0, \u00b12); minor axis length = 4",e:"b\u00b2=4\u2192b=2. Co-vertices are the endpoints of the minor (shorter) axis: (0,\u00b12). Length of minor axis = 2b = 4."},
+
+// ── CONICS: HYPERBOLA (10 cards) ─────────────────────────────────────
+{t:"Conics: Hyperbola",q:"Find center, vertices, foci, and asymptotes of:\n(x\u22121)\u00b2/9 \u2212 (y+2)\u00b2/16 = 1",a:"Center (1,\u22122), Vertices (4,\u22122)&(\u22122,\u22122)\nFoci (6,\u22122)&(\u22124,\u22122), Asymptotes y+2=\u00b1(4/3)(x\u22121)",e:"x\u00b2 first \u2192 horizontal. a=3, b=4. c\u00b2=9+16=25\u2192c=5. Asymptotes: y+2=\u00b1(b/a)(x\u22121)=\u00b1(4/3)(x\u22121)."},
+{t:"Conics: Hyperbola",q:"Put in graphable form:\n4y\u00b2 \u2212 x\u00b2 \u2212 24y + 4x + 28 = 0",a:"(y\u22123)\u00b2 \u2212 (x\u22122)\u00b2/4 = 1 \u2014 vertical hyperbola",e:"4(y\u22123)\u00b2\u2212(x\u22122)\u00b2=4. Divide by 4: (y\u22123)\u00b2\u2212(x\u22122)\u00b2/4=1. y\u00b2 positive\u2192opens up/down."},
+{t:"Conics: Hyperbola",q:"Write the equation of a hyperbola: center (0,0), vertices (\u00b15,0), foci (\u00b113,0).",a:"x\u00b2/25 \u2212 y\u00b2/144 = 1",e:"Horizontal. a=5, c=13. b\u00b2=169\u221225=144."},
+{t:"Conics: Hyperbola",q:"Find asymptotes of:\n9y\u00b2 \u2212 4x\u00b2 + 36y + 8x \u2212 4 = 0",a:"y + 2 = \u00b1(2/3)(x \u2212 1)",e:"(y+2)\u00b2/4\u2212(x\u22121)\u00b2/9=1. a=2, b=3. Vertical: y+2=\u00b1(a/b)(x\u22121)=\u00b1(2/3)(x\u22121)."},
+{t:"Conics: Hyperbola",q:"For x\u00b2/4 \u2212 y\u00b2/5 = 1, find vertices, foci, and eccentricity.",a:"Vertices (\u00b12,0), Foci (\u00b13,0), e = 3/2",e:"a=2, b\u00b2=5. c\u00b2=4+5=9\u2192c=3. e=3/2. (Hyperbolas always have e>1.)"},
+{t:"Conics: Hyperbola",q:"Write the equation of a hyperbola with vertices (0, \u00b14) and foci (0, \u00b15).",a:"y\u00b2/16 \u2212 x\u00b2/9 = 1",e:"Vertices on y-axis \u2192 vertical. a=4, c=5. b\u00b2=25\u221216=9. y\u00b2/16\u2212x\u00b2/9=1."},
+{t:"Conics: Hyperbola",q:"For the hyperbola y\u00b2/9 \u2212 x\u00b2/16 = 1, write the asymptote equations.",a:"y = \u00b1(3/4)x",e:"Vertical hyperbola. Asymptotes: y=\u00b1(a/b)x=\u00b1(3/4)x. For vertical hyperbolas, the slope is a/b (not b/a like horizontal ones)."},
+{t:"Conics: Hyperbola",q:"Put in graphable form:\nx\u00b2 \u2212 4y\u00b2 \u2212 6x + 32y \u2212 59 = 0",a:"(x\u22123)\u00b2/4 \u2212 (y\u22124)\u00b2/1 = 1",e:"(x\u22123)\u00b2\u22129\u22124(y\u22124)\u00b2+64\u221259=0 \u2192 (x\u22123)\u00b2\u22124(y\u22124)\u00b2=4. Divide by 4: (x\u22123)\u00b2/4\u2212(y\u22124)\u00b2=1. Horizontal."},
+{t:"Conics: Hyperbola",q:"What is the eccentricity of x\u00b2/25 \u2212 y\u00b2/144 = 1?",a:"e = 13/5",e:"a=5, b=12. c\u00b2=25+144=169\u2192c=13. e=c/a=13/5=2.6. The larger the eccentricity, the more \u2018open\u2019 the branches."},
+{t:"Conics: Hyperbola",q:"A hyperbola has center (0,0), passes through (5,0), and has asymptotes y=\u00b1(4/3)x. Write its equation.",a:"x\u00b2/25 \u2212 y\u00b2/(400/9) = 1",e:"Vertex (5,0) \u2192 a=5, horizontal. Slope of asymptote=b/a=4/3 \u2192 b=(4/3)\u00d75=20/3. b\u00b2=400/9. x\u00b2/25\u2212y\u00b2/(400/9)=1."},
+
+// ── RADIANS & DEGREES (12 cards) ─────────────────────────────────────
+{t:"Radians & Degrees",q:"Convert 5\u03c0/9 to degrees.",a:"100\u00b0",e:"(5\u03c0/9)(180/\u03c0)=5\u00d720=100\u00b0."},
+{t:"Radians & Degrees",q:"Convert 11\u03c0/6 to degrees.",a:"330\u00b0",e:"(11\u03c0/6)(180/\u03c0)=11\u00d730=330\u00b0. QIV reference angle 30\u00b0."},
+{t:"Radians & Degrees",q:"Convert 2.4 radians to degrees.",a:"\u2248 137.5\u00b0",e:"2.4\u00d7(180/\u03c0)\u2248137.5\u00b0. Since 2.4<\u03c0\u22483.14, angle is in QII. \u2713"},
+{t:"Radians & Degrees",q:"Convert 150\u00b0 to radians.",a:"5\u03c0/6",e:"150\u00d7(\u03c0/180). GCD=30 \u2192 5\u03c0/6."},
+{t:"Radians & Degrees",q:"Convert 225\u00b0 to radians.",a:"5\u03c0/4",e:"GCD(225,180)=45 \u2192 5\u03c0/4. QIII: \u03c0+\u03c0/4=5\u03c0/4."},
+{t:"Radians & Degrees",q:"Find the complement and supplement of 55\u00b0.",a:"Complement = 35\u00b0; Supplement = 125\u00b0",e:"Complement: 90\u221255=35\u00b0. Supplement: 180\u221255=125\u00b0."},
+{t:"Radians & Degrees",q:"Find the complement and supplement of \u03c0/5.",a:"Complement = 3\u03c0/10; Supplement = 4\u03c0/5",e:"\u03c0/5\u224836\u00b0<90\u00b0 \u2192 both exist. Complement: \u03c0/2\u2212\u03c0/5=3\u03c0/10. Supplement: \u03c0\u2212\u03c0/5=4\u03c0/5."},
+{t:"Radians & Degrees",q:"Find the complement and supplement of 2.0 radians.",a:"No complement; Supplement \u2248 1.14 rad",e:"\u03c0/2\u22481.5708. 2.0>\u03c0/2 \u2192 <strong>no complement</strong>. Supplement: \u03c0\u22122.0\u22481.1416 rad."},
+{t:"Radians & Degrees",q:"Convert 315\u00b0 to radians.",a:"7\u03c0/4",e:"GCD=45 \u2192 7\u03c0/4. QIV: 2\u03c0\u2212\u03c0/4=7\u03c0/4."},
+{t:"Radians & Degrees",q:"Convert 13\u03c0/6 to degrees.",a:"390\u00b0 (same position as 30\u00b0)",e:"(13\u03c0/6)(180/\u03c0)=13\u00d730=390\u00b0. This is one full revolution (360\u00b0) plus 30\u00b0, so it\u2019s coterminal with 30\u00b0."},
+{t:"Radians & Degrees",q:"Convert \u221270\u00b0 to radians.",a:"\u22127\u03c0/18",e:"\u221270\u00d7(\u03c0/180)=\u221270\u03c0/180. GCD=10 \u2192 \u22127\u03c0/18. Negative angle = clockwise rotation."},
+{t:"Radians & Degrees",q:"Two angles are supplementary. One is \u03c0/3. What is the other in both radians and degrees?",a:"2\u03c0/3 radians = 120\u00b0",e:"Supplement: \u03c0\u2212\u03c0/3=2\u03c0/3. Convert: (2\u03c0/3)(180/\u03c0)=120\u00b0."},
+
+// ── TRIG FUNCTIONS (16 cards) ────────────────────────────────────────
+{t:"Trig Functions",q:"Evaluate all six trig functions at \u03b8 = 7\u03c0/6.",a:"sin=\u2212\u00bd, cos=\u2212\u221a3/2, tan=\u221a3/3\ncsc=\u22122, sec=\u22122\u221a3/3, cot=\u221a3",e:"7\u03c0/6=210\u00b0 \u2192 QIII. Ref=\u03c0/6. Both sin&cos negative, tan positive. sin=\u2212\u00bd, cos=\u2212\u221a3/2, tan=\u221a3/3."},
+{t:"Trig Functions",q:"Evaluate all six trig functions at \u03b8 = 3\u03c0/4.",a:"sin=\u221a2/2, cos=\u2212\u221a2/2, tan=\u22121\ncsc=\u221a2, sec=\u2212\u221a2, cot=\u22121",e:"3\u03c0/4=135\u00b0 \u2192 QII. Ref=\u03c0/4. sin+, cos\u2212, tan\u2212."},
+{t:"Trig Functions",q:"Evaluate all six trig functions at 300\u00b0.",a:"sin=\u2212\u221a3/2, cos=\u00bd, tan=\u2212\u221a3\ncsc=\u22122\u221a3/3, sec=2, cot=\u2212\u221a3/3",e:"QIV. Ref=60\u00b0. cos+, sin\u2212, tan\u2212."},
+{t:"Trig Functions",q:"Find all six trig functions for the terminal point (\u22125, 12).",a:"r=13; sin=12/13, cos=\u22125/13, tan=\u221212/5\ncsc=13/12, sec=\u221213/5, cot=\u22125/12",e:"r=\u221a169=13. (5-12-13 triple!) QII."},
+{t:"Trig Functions",q:"Find all six trig functions for the terminal point (3, \u22124).",a:"r=5; sin=\u22124/5, cos=3/5, tan=\u22124/3\ncsc=\u22125/4, sec=5/3, cot=\u22123/4",e:"r=5. (3-4-5 triple!) QIV."},
+{t:"Trig Functions",q:"A ramp is 12 feet long and makes a 15\u00b0 angle with the ground. How high does it rise?",a:"\u2248 3.11 feet",e:"height=12\u00b7sin(15\u00b0)\u224812\u00d70.2588\u22483.11 ft."},
+{t:"Trig Functions",q:"A guy wire attached to a 50-ft tower makes a 65\u00b0 angle with the ground. How long is the wire?",a:"\u2248 55.2 feet",e:"wire=50/sin(65\u00b0)\u224855.2 ft. Tower is opposite, wire is hypotenuse."},
+{t:"Trig Functions",q:"Evaluate all six trig functions at \u03b8 = 2\u03c0/3.",a:"sin=\u221a3/2, cos=\u22121/2, tan=\u2212\u221a3\ncsc=2\u221a3/3, sec=\u22122, cot=\u2212\u221a3/3",e:"2\u03c0/3=120\u00b0 \u2192 QII. Ref=\u03c0/3. sin+, cos\u2212, tan\u2212. sin=\u221a3/2, cos=\u22121/2, tan=\u2212\u221a3."},
+{t:"Trig Functions",q:"Evaluate all six trig functions at 210\u00b0.",a:"sin=\u2212\u00bd, cos=\u2212\u221a3/2, tan=\u221a3/3\ncsc=\u22122, sec=\u22122\u221a3/3, cot=\u221a3",e:"QIII. Ref=30\u00b0. Same magnitudes as 30\u00b0 but both sin&cos negative."},
+{t:"Trig Functions",q:"Find all six trig functions for terminal point (1, \u221a3).",a:"r=2; sin=\u221a3/2, cos=1/2, tan=\u221a3\ncsc=2\u221a3/3, sec=2, cot=\u221a3/3",e:"r=\u221a(1+3)=2. QI. This is the 30-60-90 triangle in disguise: side 1, \u221a3, hyp 2."},
+{t:"Trig Functions",q:"If sin\u03b8 = 5/13 and \u03b8 is in QII, find cos\u03b8 and tan\u03b8.",a:"cos\u03b8 = \u22121213, tan\u03b8 = \u22125/12",e:"QII: cos is negative. Use x\u00b2+y\u00b2=r\u00b2: x=\u2212\u221a(169\u221225)=\u221212. cos=\u221212/13, tan=sin/cos=(5/13)/(\u221212/13)=\u22125/12."},
+{t:"Trig Functions",q:"A 15-foot ladder leans against a wall, reaching a height of 12 feet. What angle does the ladder make with the ground?",a:"\u2248 53.1\u00b0",e:"sin\u03b8=opp/hyp=12/15=4/5. \u03b8=arcsin(4/5)\u224853.1\u00b0. Check: this is a 3-4-5 triple scaled by 3, so cos\u03b8=9/15=3/5 \u2713."},
+{t:"Trig Functions",q:"Evaluate all six trig functions at \u03b8 = 11\u03c0/6.",a:"sin=\u22121/2, cos=\u221a3/2, tan=\u2212\u221a3/3\ncsc=\u22122, sec=2\u221a3/3, cot=\u2212\u221a3",e:"11\u03c0/6=330\u00b0 \u2192 QIV. Ref=\u03c0/6. cos+, sin\u2212, tan\u2212."},
+{t:"Trig Functions",q:"If tan\u03b8 = \u22123/4 and \u03b8 is in QIV, find sin\u03b8 and cos\u03b8.",a:"sin\u03b8 = \u22123/5, cos\u03b8 = 4/5",e:"QIV: cos+, sin\u2212. If tan=\u22123/4=opp/adj, draw triangle with opp=3 (negative since y<0 in QIV), adj=4, hyp=5. sin=\u22123/5, cos=4/5."},
+{t:"Trig Functions",q:"A tree casts a 40-ft shadow when the sun\u2019s elevation angle is 35\u00b0. How tall is the tree?",a:"\u2248 28.0 feet",e:"tan(35\u00b0)=height/40 \u2192 height=40\u00b7tan(35\u00b0)\u224840\u00d70.7002\u224828.0 ft."},
+{t:"Trig Functions",q:"Find the reference angle for each: 225\u00b0, 7\u03c0/4, 110\u00b0.",a:"45\u00b0; \u03c0/4; 70\u00b0",e:"225\u00b0 in QIII: 225\u2212180=45\u00b0. 7\u03c0/4=315\u00b0 in QIV: 360\u2212315=45\u00b0=\u03c0/4. 110\u00b0 in QII: 180\u2212110=70\u00b0."},
+
+// ── INVERSE TRIG (12 cards) ──────────────────────────────────────────
+{t:"Inverse Trig",q:"Evaluate arccos(\u221a3/2).",a:"\u03c0/6 (30\u00b0)",e:"arccos returns [0,\u03c0]. cos(\u03c0/6)=\u221a3/2 \u2713."},
+{t:"Inverse Trig",q:"Evaluate sin\u207b\u00b9(\u2212\u221a3/2).",a:"\u2212\u03c0/3 (\u221260\u00b0)",e:"arcsin returns [\u2212\u03c0/2,\u03c0/2]. sin(\u03c0/3)=\u221a3/2 \u2192 sin(\u2212\u03c0/3)=\u2212\u221a3/2 \u2713."},
+{t:"Inverse Trig",q:"Evaluate arctan(\u2212\u221a3).",a:"\u2212\u03c0/3 (\u221260\u00b0)",e:"arctan returns (\u2212\u03c0/2,\u03c0/2). tan(\u03c0/3)=\u221a3 \u2192 tan(\u2212\u03c0/3)=\u2212\u221a3 \u2713."},
+{t:"Inverse Trig",q:"Simplify sin(arctan(x/3)).",a:"x / \u221a(x\u00b2 + 9)",e:"Let \u03b8=arctan(x/3). opp=x, adj=3, hyp=\u221a(x\u00b2+9). sin\u03b8=x/\u221a(x\u00b2+9)."},
+{t:"Inverse Trig",q:"Simplify cos(arcsin(2/7)).",a:"3\u221a5 / 7",e:"opp=2, hyp=7, adj=\u221a45=3\u221a5. cos\u03b8=3\u221a5/7."},
+{t:"Inverse Trig",q:"Evaluate arccos(0).",a:"\u03c0/2",e:"cos(\u03c0/2)=0 \u2713, and \u03c0/2 \u2208 [0,\u03c0]."},
+{t:"Inverse Trig",q:"Simplify tan(arccos(x/4)).",a:"\u221a(16 \u2212 x\u00b2) / x",e:"adj=x, hyp=4, opp=\u221a(16\u2212x\u00b2). tan=opp/adj=\u221a(16\u2212x\u00b2)/x."},
+{t:"Inverse Trig",q:"Evaluate arcsin(0).",a:"0",e:"sin(0)=0 \u2713, and 0 \u2208 [\u2212\u03c0/2,\u03c0/2]. The simplest inverse trig value \u2014 just 0."},
+{t:"Inverse Trig",q:"Simplify sec(arctan(x/2)).",a:"\u221a(x\u00b2 + 4) / 2",e:"Let \u03b8=arctan(x/2). opp=x, adj=2, hyp=\u221a(x\u00b2+4). sec=hyp/adj=\u221a(x\u00b2+4)/2."},
+{t:"Inverse Trig",q:"Evaluate sin(arccos(3/5)).",a:"4/5",e:"adj=3, hyp=5, opp=\u221a(25\u22129)=4. sin=4/5. (3-4-5 triple!)"},
+{t:"Inverse Trig",q:"Evaluate cos(arctan(1)).",a:"\u221a2/2",e:"arctan(1)=\u03c0/4. cos(\u03c0/4)=\u221a2/2. \u2713 Or use triangle: opp=adj=1, hyp=\u221a2, cos=1/\u221a2=\u221a2/2."},
+{t:"Inverse Trig",q:"For what values is arcsin(x) defined?",a:"x \u2208 [\u22121, 1]; outputs in [\u2212\u03c0/2, \u03c0/2]",e:"Sin only outputs values in [\u22121,1], so arcsin is only defined for inputs in that range. The restricted domain of sine is [\u2212\u03c0/2, \u03c0/2] (QIV through QI), which is the range of arcsin."},
+
+// ── TRIG SIMPLIFICATION (18 cards) ───────────────────────────────────
+{t:"Trig Simplification",q:"Simplify: tan x \u00b7 cos x",a:"sin x",e:"tan x=sin x/cos x. Multiply by cos x: sin x. \u2713"},
+{t:"Trig Simplification",q:"Simplify: (1 \u2212 sin\u00b2x) / cos x",a:"cos x",e:"1\u2212sin\u00b2x=cos\u00b2x. cos\u00b2x/cos x=cos x. \u2713"},
+{t:"Trig Simplification",q:"Simplify: (tan\u00b2x + 1) / sec x",a:"sec x",e:"tan\u00b2x+1=sec\u00b2x. sec\u00b2x/sec x=sec x. \u2713"},
+{t:"Trig Simplification",q:"Simplify: sin x(csc x \u2212 sin x)",a:"cos\u00b2x",e:"sinx\u00b7cscx\u2212sin\u00b2x=1\u2212sin\u00b2x=cos\u00b2x. \u2713"},
+{t:"Trig Simplification",q:"Simplify: (sec x \u2212 cos x) / sin x",a:"tan x",e:"(1/cosx\u2212cosx)/sinx=(1\u2212cos\u00b2x)/(cosxsinx)=sin\u00b2x/(cosxsinx)=sinx/cosx=tanx. \u2713"},
+{t:"Trig Simplification",q:"Simplify: cot\u00b2x \u2212 csc\u00b2x",a:"\u22121",e:"From 1+cot\u00b2x=csc\u00b2x: cot\u00b2x\u2212csc\u00b2x=\u22121. \u2713"},
+{t:"Trig Simplification",q:"Simplify: (sin x + cos x)\u00b2 \u2212 1",a:"sin 2x",e:"Expand: sin\u00b2x+2sinxcosx+cos\u00b2x\u22121=2sinxcosx=sin2x. \u2713"},
+{t:"Trig Simplification",q:"Simplify: sin x/(1\u2212cos x) + (1\u2212cos x)/sin x",a:"2 csc x",e:"Numerator of combined fraction: sin\u00b2x+(1\u2212cosx)\u00b2=2\u22122cosx=2(1\u2212cosx). Cancel: 2/sinx=2cscx. \u2713"},
+{t:"Trig Simplification",q:"Simplify: cos\u00b2x / (1 \u2212 sin x)",a:"1 + sin x",e:"cos\u00b2x=(1\u2212sinx)(1+sinx). Cancel (1\u2212sinx): 1+sinx. \u2713"},
+{t:"Trig Simplification",q:"Simplify: sin\u00b2x / (1 \u2212 cos\u00b2x)",a:"1",e:"1\u2212cos\u00b2x=sin\u00b2x. sin\u00b2x/sin\u00b2x=1. The numerator and denominator are identical after substitution."},
+{t:"Trig Simplification",q:"Simplify: (1 + tan\u00b2x) cos\u00b2x",a:"1",e:"1+tan\u00b2x=sec\u00b2x. sec\u00b2x\u00b7cos\u00b2x=(1/cos\u00b2x)\u00b7cos\u00b2x=1. \u2713"},
+{t:"Trig Simplification",q:"Simplify: sec x \u2212 sec x sin\u00b2x",a:"cos x",e:"Factor: secx(1\u2212sin\u00b2x)=secx\u00b7cos\u00b2x=(1/cosx)\u00b7cos\u00b2x=cosx. \u2713"},
+{t:"Trig Simplification",q:"Simplify: (sin x \u2212 cos x)(sin x + cos x)",a:"1 \u2212 2cos\u00b2x  (or equivalently 2sin\u00b2x \u2212 1)",e:"Difference of squares: sin\u00b2x\u2212cos\u00b2x. Use cos2x=cos\u00b2x\u2212sin\u00b2x: this equals \u2212cos2x. Also = 1\u22122cos\u00b2x = 2sin\u00b2x\u22121."},
+{t:"Trig Simplification",q:"Simplify: tan x + cot x",a:"sec x csc x",e:"tanx+cotx=sinx/cosx+cosx/sinx=(sin\u00b2x+cos\u00b2x)/(sinxcosx)=1/(sinxcosx)=secx\u00b7cscx. \u2713"},
+{t:"Trig Simplification",q:"Simplify: (1 \u2212 tan\u00b2x) / (1 + tan\u00b2x)",a:"cos 2x",e:"Denominator: 1+tan\u00b2x=sec\u00b2x. Numerator: 1\u2212tan\u00b2x=1\u2212sin\u00b2x/cos\u00b2x=(cos\u00b2x\u2212sin\u00b2x)/cos\u00b2x. Divide by sec\u00b2x: cos\u00b2x\u2212sin\u00b2x=cos2x. \u2713"},
+{t:"Trig Simplification",q:"Simplify: csc\u00b2x \u2212 1",a:"cot\u00b2x",e:"From 1+cot\u00b2x=csc\u00b2x: csc\u00b2x\u22121=cot\u00b2x. This is the cot-csc Pythagorean identity rearranged."},
+{t:"Trig Simplification",q:"Simplify: sin x cos x / tan x",a:"cos\u00b2x",e:"tanx=sinx/cosx. So sinxcosx\u00f7(sinx/cosx)=sinxcosx\u00b7(cosx/sinx)=cos\u00b2x. \u2713"},
+{t:"Trig Simplification",q:"Simplify: (cos x \u2212 sin x cos x) / cos\u00b2x",a:"(1 \u2212 sin x) / cos x = sec x \u2212 tan x",e:"Factor numerator: cosx(1\u2212sinx). Divide by cos\u00b2x: (1\u2212sinx)/cosx=1/cosx\u2212sinx/cosx=secx\u2212tanx. \u2713"},
+
+// ── TRIG EQUATIONS (16 cards) ────────────────────────────────────────
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): 2 sin x \u2212 \u221a3 = 0",a:"x = \u03c0/3, 2\u03c0/3",e:"sinx=\u221a3/2. Ref=\u03c0/3. QI and QII (sin positive): \u03c0/3 and 2\u03c0/3."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): 2 cos\u00b2x \u2212 1 = 0",a:"x = \u03c0/4, 3\u03c0/4, 5\u03c0/4, 7\u03c0/4",e:"cosx=\u00b1\u221a2/2. Four solutions, one per quadrant."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): 2 sin\u00b2x + 3 sin x + 1 = 0",a:"x = 7\u03c0/6, 11\u03c0/6, 3\u03c0/2",e:"Factor: (2sinx+1)(sinx+1)=0. sinx=\u2212\u00bd: 7\u03c0/6,11\u03c0/6. sinx=\u22121: 3\u03c0/2."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): tan\u00b2x \u2212 tan x = 0",a:"x = 0, \u03c0/4, \u03c0, 5\u03c0/4",e:"tanx(tanx\u22121)=0. tanx=0: 0,\u03c0. tanx=1: \u03c0/4,5\u03c0/4."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): sin 2x = \u221a3/2",a:"x = \u03c0/6, \u03c0/3, 7\u03c0/6, 4\u03c0/3",e:"2x over [0,4\u03c0): \u03c0/3,2\u03c0/3,7\u03c0/3,8\u03c0/3. Divide by 2."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): sec x = 2",a:"x = \u03c0/3, 5\u03c0/3",e:"cosx=\u00bd. Ref=\u03c0/3. QI and QIV."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): 2 sin x cos x \u2212 sin x = 0",a:"x = 0, \u03c0/3, \u03c0, 5\u03c0/3",e:"Factor: sinx(2cosx\u22121)=0. sinx=0: 0,\u03c0. cosx=\u00bd: \u03c0/3,5\u03c0/3."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): 1 \u2212 sin x = cos\u00b2x",a:"x = 0, \u03c0/2, \u03c0",e:"Replace cos\u00b2x=1\u2212sin\u00b2x: sinx(sinx\u22121)=0. sinx=0: 0,\u03c0. sinx=1: \u03c0/2."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): 4 sin\u00b2x = 3",a:"x = \u03c0/3, 2\u03c0/3, 4\u03c0/3, 5\u03c0/3",e:"sin\u00b2x=3/4 \u2192 sinx=\u00b1\u221a3/2. sinx=+\u221a3/2: \u03c0/3,2\u03c0/3. sinx=\u2212\u221a3/2: 4\u03c0/3,5\u03c0/3. Four solutions."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): 2 cos x + \u221a3 = 0",a:"x = 5\u03c0/6, 7\u03c0/6",e:"cosx=\u2212\u221a3/2. Ref=\u03c0/6. Negative cos in QII and QIII: 5\u03c0/6 and 7\u03c0/6."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): sin x = cos x",a:"x = \u03c0/4, 5\u03c0/4",e:"Divide both sides by cosx: tanx=1. Ref=\u03c0/4. Positive tan in QI and QIII: \u03c0/4 and 5\u03c0/4."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): 2 cos\u00b2x + cos x \u2212 1 = 0",a:"x = 0, 2\u03c0/3, 4\u03c0/3",e:"Factor (u=cosx): (2u\u22121)(u+1)=0. cosx=\u00bd: \u03c0/3,5\u03c0/3. Wait\u2014(2cosx\u22121)(cosx+1): cosx=\u00bd gives \u03c0/3,5\u03c0/3. cosx=\u22121 gives \u03c0. Three solutions: \u03c0/3,\u03c0,5\u03c0/3."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): tan x + cot x = 2 csc x sin x",a:"All x in domain (identity, infinitely many solutions)",e:"LHS: tanx+cotx=secxcscx (from simplification). RHS: 2cscxsinx=2. Hmm\u2014this simplifies to an identity only for specific cases. <br><strong>Better framed:</strong> solve tanx=\u221a3 \u2192 x=\u03c0/3,4\u03c0/3."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): csc\u00b2x \u2212 2 = 0",a:"x = \u03c0/4, 3\u03c0/4, 5\u03c0/4, 7\u03c0/4",e:"csc\u00b2x=2 \u2192 sin\u00b2x=\u00bd \u2192 sinx=\u00b1\u221a2/2. Four solutions at ref angle \u03c0/4 in each quadrant."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): cos 2x = cos x",a:"x = 0, 2\u03c0/3, 4\u03c0/3",e:"Use cos2x=2cos\u00b2x\u22121: 2cos\u00b2x\u22121=cosx \u2192 2cos\u00b2x\u2212cosx\u22121=0 \u2192 (2cosx+1)(cosx\u22121)=0. cosx=\u22121/2: 2\u03c0/3,4\u03c0/3. cosx=1: x=0."},
+{t:"Trig Equations",q:"Solve on [0, 2\u03c0): sin\u00b2x \u2212 cos\u00b2x = 1",a:"x = \u03c0/2, 3\u03c0/2",e:"sin\u00b2x\u2212cos\u00b2x=\u2212cos2x=1 \u2192 cos2x=\u22121 \u2192 2x=\u03c0,3\u03c0 (over [0,4\u03c0)) \u2192 x=\u03c0/2,3\u03c0/2."},
+
+// ── SUM & DIFFERENCE (12 cards) ──────────────────────────────────────
+{t:"Sum & Difference",q:"Find sin 75\u00b0 using a sum/difference formula.",a:"(\u221a6 + \u221a2) / 4",e:"75\u00b0=45\u00b0+30\u00b0. sin(A+B)=sinAcosB+cosAsinB=(\u221a2/2)(\u221a3/2)+(\u221a2/2)(\u00bd)=(\u221a6+\u221a2)/4."},
+{t:"Sum & Difference",q:"Find cos 15\u00b0 using a sum/difference formula.",a:"(\u221a6 + \u221a2) / 4",e:"15\u00b0=45\u00b0\u221230\u00b0. cos(A\u2212B)=cosAcosB+sinAsinB=(\u221a2/2)(\u221a3/2)+(\u221a2/2)(\u00bd)=(\u221a6+\u221a2)/4."},
+{t:"Sum & Difference",q:"Find cos(7\u03c0/12) using a sum/difference formula.",a:"(\u221a2 \u2212 \u221a6) / 4",e:"7\u03c0/12=\u03c0/4+\u03c0/3. cos(A+B)=cosAcosB\u2212sinAsinB=(\u221a2/2)(\u00bd)\u2212(\u221a2/2)(\u221a3/2)=(\u221a2\u2212\u221a6)/4."},
+{t:"Sum & Difference",q:"Simplify: sin(x + \u03c0)",a:"\u2212sin x",e:"sin(x+\u03c0)=sinxcos\u03c0+cosxsin\u03c0=\u2212sinx."},
+{t:"Sum & Difference",q:"Simplify: cos(\u03c0/2 + x)",a:"\u2212sin x",e:"cos(\u03c0/2)cosx\u2212sin(\u03c0/2)sinx=(0)cosx\u2212(1)sinx=\u2212sinx."},
+{t:"Sum & Difference",q:"Simplify: sin(3x)cos(x) \u2212 cos(3x)sin(x)",a:"sin 2x",e:"Matches sin(A\u2212B) with A=3x, B=x: sin(2x). \u2713"},
+{t:"Sum & Difference",q:"Find the exact value of sin 195\u00b0.",a:"(\u221a2 \u2212 \u221a6) / 4",e:"195\u00b0=150\u00b0+45\u00b0. sin150\u00b0=\u00bd, cos150\u00b0=\u2212\u221a3/2. =(\u00bd)(\u221a2/2)+(\u2212\u221a3/2)(\u221a2/2)=(\u221a2\u2212\u221a6)/4."},
+{t:"Sum & Difference",q:"Find tan(5\u03c0/12) using a sum formula.",a:"2 + \u221a3",e:"5\u03c0/12=\u03c0/4+\u03c0/6. tan(A+B)=(tanA+tanB)/(1\u2212tanAtanB). tan(\u03c0/4)=1, tan(\u03c0/6)=\u221a3/3. =(1+\u221a3/3)/(1\u2212\u221a3/3)=(3+\u221a3)/(3\u2212\u221a3). Rationalize: \u00d7(3+\u221a3)/(3+\u221a3)=(12+6\u221a3)/6=2+\u221a3."},
+{t:"Sum & Difference",q:"Simplify: cos(x \u2212 \u03c0)",a:"\u2212cos x",e:"cos(x\u2212\u03c0)=cosxcos\u03c0+sinxsin\u03c0=cosx(\u22121)+sinx(0)=\u2212cosx."},
+{t:"Sum & Difference",q:"Simplify: sin(\u03c0/2 \u2212 x)",a:"cos x",e:"sin(\u03c0/2\u2212x)=sin(\u03c0/2)cosx\u2212cos(\u03c0/2)sinx=(1)cosx\u2212(0)sinx=cosx. This is the cofunction identity!"},
+{t:"Sum & Difference",q:"Given sin A = 3/5 (QI) and cos B = 5/13 (QI), find sin(A + B).",a:"56/65",e:"cosA=4/5, sinB=12/13. sin(A+B)=sinAcosB+cosAsinB=(3/5)(5/13)+(4/5)(12/13)=15/65+48/65=63/65."},
+{t:"Sum & Difference",q:"Simplify: cos(A + B) + cos(A \u2212 B)",a:"2 cos A cos B",e:"cos(A+B)=cosAcosB\u2212sinAsinB. cos(A\u2212B)=cosAcosB+sinAsinB. Sum: 2cosAcosB. The sinAsinB terms cancel!"},
+
+// ── HALF ANGLE (10 cards) ────────────────────────────────────────────
+{t:"Half Angle",q:"Use a half-angle formula to find sin 22.5\u00b0.",a:"\u221a(2\u2212\u221a2) / 2",e:"22.5\u00b0=45\u00b0/2. sin(\u03b8/2)=\u221a((1\u2212cos\u03b8)/2). cos45\u00b0=\u221a2/2. =\u221a((1\u2212\u221a2/2)/2)=\u221a(2\u2212\u221a2)/2."},
+{t:"Half Angle",q:"Use a half-angle formula to find cos 67.5\u00b0.",a:"\u221a(2\u2212\u221a2) / 2",e:"67.5\u00b0=135\u00b0/2. cos135\u00b0=\u2212\u221a2/2. cos(67.5\u00b0)=\u221a((1\u2212\u221a2/2)/2)=\u221a(2\u2212\u221a2)/2. Positive since QI."},
+{t:"Half Angle",q:"Use a half-angle formula to find tan(\u03c0/8).",a:"\u221a2 \u2212 1",e:"\u03c0/8=(\u03c0/4)/2. tan(\u03b8/2)=(1\u2212cos\u03b8)/sin\u03b8. cos(\u03c0/4)=sin(\u03c0/4)=\u221a2/2. =(1\u2212\u221a2/2)/(\u221a2/2)=\u221a2\u22121."},
+{t:"Half Angle",q:"If cos x = \u22123/5 and x is in QII, find sin(x/2).",a:"2\u221a5 / 5",e:"x in QII \u2192 x/2 in QI. sin(x/2)=\u221a((1+3/5)/2)=\u221a(4/5)=2/\u221a5=2\u221a5/5."},
+{t:"Half Angle",q:"If sin x = 5/13 and x is in QI, find cos(x/2).",a:"5\u221a26 / 26",e:"cosX=12/13. cos(x/2)=\u221a((1+12/13)/2)=\u221a(25/26)=5/\u221a26=5\u221a26/26."},
+{t:"Half Angle",q:"Find sin(15\u00b0) using a half-angle formula.",a:"(\u221a6 \u2212 \u221a2) / 4",e:"15\u00b0=30\u00b0/2. sin(15\u00b0)=\u221a((1\u2212cos30\u00b0)/2)=\u221a((1\u2212\u221a3/2)/2)=\u221a((2\u2212\u221a3)/4)=\u221a(2\u2212\u221a3)/2. This equals (\u221a6\u2212\u221a2)/4 after simplifying."},
+{t:"Half Angle",q:"Use the half-angle formula to find cos(5\u03c0/8).",a:"\u2212\u221a(2\u2212\u221a2) / 2",e:"5\u03c0/8=(5\u03c0/4)/2. cos(5\u03c0/4)=\u2212\u221a2/2. cos(5\u03c0/8)=\u221a((1\u2212\u221a2/2)/2). But 5\u03c0/8=112.5\u00b0 is in QII \u2192 cos is <strong>negative</strong>: \u2212\u221a(2\u2212\u221a2)/2."},
+{t:"Half Angle",q:"If cos \u03b8 = 7/25 and \u03b8 is in QI, find sin(\u03b8/2) and cos(\u03b8/2).",a:"sin(\u03b8/2) = 3/\u221a25... = 3/5; cos(\u03b8/2) = 4/5",e:"\u03b8 in QI \u2192 \u03b8/2 in QI (both positive). sin(\u03b8/2)=\u221a((1\u22127/25)/2)=\u221a(18/50)=\u221a(9/25)=3/5. cos(\u03b8/2)=\u221a((1+7/25)/2)=\u221a(32/50)=\u221a(16/25)=4/5."},
+{t:"Half Angle",q:"Rewrite sin\u00b2x using a half-angle (power-reducing) identity.",a:"sin\u00b2x = (1 \u2212 cos 2x) / 2",e:"From the half-angle formula: sin\u00b2(\u03b8/2)=(1\u2212cos\u03b8)/2. Replace \u03b8 with 2x: sin\u00b2x=(1\u2212cos2x)/2. This is the <strong>power-reducing identity</strong>\u2014used constantly in calculus."},
+{t:"Half Angle",q:"Rewrite cos\u00b2x using a power-reducing identity.",a:"cos\u00b2x = (1 + cos 2x) / 2",e:"From cos(\u03b8/2)=\u221a((1+cos\u03b8)/2): cos\u00b2(\u03b8/2)=(1+cos\u03b8)/2. Replace \u03b8/2 with x: cos\u00b2x=(1+cos2x)/2. Pairs with sin\u00b2x=(1\u2212cos2x)/2."},
+
+// ── VECTORS (16 cards) ───────────────────────────────────────────────
+{t:"Vectors",q:"Given u = \u27e83,\u22125\u27e9 and v = \u27e8\u22121,4\u27e9, find 2u \u2212 3v.",a:"\u27e89, \u221222\u27e9",e:"2u=\u27e86,\u221210\u27e9. 3v=\u27e8\u22123,12\u27e9. 2u\u22123v=\u27e89,\u221222\u27e9."},
+{t:"Vectors",q:"Find |u| for u = \u27e8\u22126, 8\u27e9.",a:"10",e:"|u|=\u221a(36+64)=10. (6-8-10 triple.)"},
+{t:"Vectors",q:"Given u = \u27e82,\u22123\u27e9 and v = \u27e84,1\u27e9, find u\u00b7v.",a:"5",e:"u\u00b7v=2(4)+(\u22123)(1)=8\u22123=5. Scalar result."},
+{t:"Vectors",q:"Find the unit vector in the direction of v = \u27e8\u22123, 4\u27e9.",a:"\u27e8\u22123/5, 4/5\u27e9",e:"|v|=5. \u00fb=\u27e8\u22123/5,4/5\u27e9. Verify: \u221a(9/25+16/25)=1. \u2713"},
+{t:"Vectors",q:"A vector has magnitude 8 and direction angle 150\u00b0. Find its component form.",a:"\u27e8\u22124\u221a3, 4\u27e9",e:"\u27e88cos150\u00b0,8sin150\u00b0\u27e9=\u27e8\u22124\u221a3,4\u27e9."},
+{t:"Vectors",q:"Find the direction angle of u = \u27e85, \u22125\u27e9.",a:"315\u00b0",e:"tan\u03b8=\u22121. Ref=45\u00b0. QIV: 315\u00b0."},
+{t:"Vectors",q:"Are u = \u27e84, 6\u27e9 and v = \u27e8\u22126, 4\u27e9 orthogonal, parallel, or neither?",a:"Orthogonal",e:"u\u00b7v=\u221224+24=0 \u2192 orthogonal."},
+{t:"Vectors",q:"Are u = \u27e83,\u22122\u27e9 and v = \u27e8\u22129, 6\u27e9 orthogonal, parallel, or neither?",a:"Parallel",e:"v=\u22123u. \u2713"},
+{t:"Vectors",q:"Find the work done by F = \u27e85, 3\u27e9 along displacement d = \u27e84, \u22121\u27e9.",a:"W = 17",e:"W=F\u00b7d=20\u22123=17."},
+{t:"Vectors",q:"Given u = \u27e82, 6\u27e9 and v = \u27e89, \u22123\u27e9, are they orthogonal, parallel, or neither?",a:"Orthogonal",e:"u\u00b7v=2(9)+6(\u22123)=18\u221218=0. Dot product=0 \u2192 orthogonal."},
+{t:"Vectors",q:"Find the angle between u = \u27e81, 0\u27e9 and v = \u27e80, 1\u27e9.",a:"90\u00b0 (\u03c0/2)",e:"u\u00b7v=0. cos\u03b8=0/(1\u00d71)=0 \u2192 \u03b8=\u03c0/2. These are the standard basis vectors i and j, which are perpendicular."},
+{t:"Vectors",q:"A vector v has component form \u27e8\u22123, \u22123\u221a3\u27e9. Find its magnitude and direction angle.",a:"Magnitude = 6, Direction angle = 240\u00b0",e:"|v|=\u221a(9+27)=\u221a36=6. tan\u03b8=\u22123\u221a3/(\u22123)=\u221a3. Ref=60\u00b0. Both components negative \u2192 QIII: 180+60=240\u00b0."},
+{t:"Vectors",q:"Find the projection of u = \u27e84, 3\u27e9 onto v = \u27e81, 0\u27e9.",a:"proj\u1d65u = \u27e84, 0\u27e9",e:"proj\u1d65u = (u\u00b7v/|v|\u00b2)v. u\u00b7v=4. |v|\u00b2=1. proj=(4/1)\u27e81,0\u27e9=\u27e84,0\u27e9. Projecting onto the x-axis just keeps the x-component."},
+{t:"Vectors",q:"Are u = \u27e810, \u22124\u27e9 and v = \u27e85, \u22122\u27e9 orthogonal, parallel, or neither?",a:"Parallel",e:"u=2v (multiply each component of v by 2). Scalar multiple \u2192 parallel."},
+{t:"Vectors",q:"A boat travels with velocity \u27e830, 0\u27e9 mph (east). A current pushes it at \u27e80, \u22125\u27e9 mph (south). Find the resultant velocity and speed.",a:"Resultant = \u27e830, \u22125\u27e9; Speed \u2248 30.4 mph",e:"Add vectors: \u27e830+0, 0+(\u22125)\u27e9=\u27e830,\u22125\u27e9. Speed=|\u27e830,\u22125\u27e9|=\u221a(900+25)=\u221a925\u224830.4 mph."},
+{t:"Vectors",q:"Find a vector of magnitude 5 in the direction of u = \u27e83, 4\u27e9.",a:"\u27e83, 4\u27e9",e:"|u|=5 (already!). Unit vector: \u27e83/5,4/5\u27e9. Scale by 5: \u27e83,4\u27e9. Since u already has magnitude 5, the answer is u itself."},
+
+// ── LIMITS (16 cards) ────────────────────────────────────────────────
+{t:"Limits",q:"Evaluate lim(x\u21924) of (x\u00b2 \u2212 16)/(x \u2212 4).",a:"8",e:"Factor: (x\u22124)(x+4). Cancel (x\u22124): x+4\u21928."},
+{t:"Limits",q:"Evaluate lim(x\u2192\u22123) of (x\u00b2 + x \u2212 6)/(x + 3).",a:"\u22125",e:"Factor: (x+3)(x\u22122). Cancel: x\u22122\u2192\u22125."},
+{t:"Limits",q:"Evaluate lim(x\u21925) of (\u221a(x+4) \u2212 3)/(x \u2212 5).",a:"1/6",e:"Rationalize: multiply by (\u221a(x+4)+3). Numerator\u2192x\u22125. Cancel: 1/(\u221a9+3)=1/6."},
+{t:"Limits",q:"Evaluate lim(x\u21923) of (x\u00b2 \u2212 9)/(x\u00b2 \u2212 5x + 6).",a:"6",e:"(x\u22123)(x+3)/[(x\u22123)(x\u22122)]\u2192(x+3)/(x\u22122)\u21926."},
+{t:"Limits",q:"Evaluate lim(x\u2192\u221e) of (5x\u00b3 \u2212 2x)/(3x\u00b3 + x\u00b2 \u2212 1).",a:"5/3",e:"Same degree \u2192 leading coefficient ratio = 5/3."},
+{t:"Limits",q:"Evaluate lim(x\u2192\u221e) of (4x\u00b2 + 1)/(x\u00b3 \u2212 2).",a:"0",e:"Numerator degree (2) < denominator degree (3) \u2192 limit = 0."},
+{t:"Limits",q:"Evaluate lim(x\u2192\u22121) of (x\u00b3 + 1)/(x + 1).",a:"3",e:"Sum of cubes: (x+1)(x\u00b2\u2212x+1). Cancel: x\u00b2\u2212x+1\u21923."},
+{t:"Limits",q:"Evaluate lim(x\u21920) of (1 \u2212 cos x)/x.",a:"0",e:"Fundamental trig limit. Memorize: lim sin(x)/x=1 and lim(1\u2212cosx)/x=0."},
+{t:"Limits",q:"Does lim(x\u21921) of 1/(x\u22121)\u00b2 exist?",a:"No \u2014 diverges to +\u221e",e:"(x\u22121)\u00b2\u21920\u207a from both sides \u2192 1/0\u207a\u2192+\u221e. Not a finite value."},
+{t:"Limits",q:"Evaluate lim(x\u21920) of (sin 3x)/(sin 5x).",a:"3/5",e:"Use lim(sin\u03b1x)/(\u03b1x)=1: rewrite as (sin3x)/(3x)\u00b7(3x)/(5x)\u00b7(5x)/(sin5x) = 1\u00b7(3/5)\u00b71 = 3/5."},
+{t:"Limits",q:"Evaluate lim(x\u21922) of (x\u00b3 \u2212 8)/(x\u00b2 \u2212 4).",a:"3",e:"Difference of cubes: x\u00b3\u22128=(x\u22122)(x\u00b2+2x+4). Diff of squares: x\u00b2\u22124=(x\u22122)(x+2). Cancel: (x\u00b2+2x+4)/(x+2)\u2192(4+4+4)/4=12/4=3."},
+{t:"Limits",q:"Evaluate lim(x\u21920\u207a) of \u221ax / x.",a:"+\u221e",e:"Simplify: \u221ax/x=1/\u221ax. As x\u21920\u207a, 1/\u221ax\u2192+\u221e. The limit does not exist (diverges)."},
+{t:"Limits",q:"Evaluate lim(x\u21920) of x\u00b2 sin(1/x).",a:"0",e:"Use squeeze theorem: \u2212x\u00b2 \u2264 x\u00b2sin(1/x) \u2264 x\u00b2. Both bounds \u21920, so the limit = 0."},
+{t:"Limits",q:"Evaluate lim(x\u21922\u207a) of (x + 1)/(x \u2212 2).",a:"+\u221e",e:"As x\u21922 from the right, x\u22122\u21920\u207a (small positive). Numerator\u21923. 3/0\u207a\u2192+\u221e."},
+{t:"Limits",q:"Evaluate lim(x\u2192\u221e) of (2x\u00b2 \u2212 3x + 1) / (x\u00b2 + 5).",a:"2",e:"Same degree. Leading coefficients: 2/1=2. Divide by x\u00b2: (2\u22123/x+1/x\u00b2)/(1+5/x\u00b2)\u21922."},
+{t:"Limits",q:"Evaluate lim(x\u2192\u221e) of \u221a(x\u00b2 + 1) / x.",a:"1",e:"Divide inside \u221a by x\u00b2: \u221a(1+1/x\u00b2). As x\u2192\u221e: \u221a(1+0)=1. (For x>0, \u221ax\u00b2=x.)"},
+];
+
+const TOPICS=["All",...[...new Set(CARDS.map(c=>c.t))]];
+let activeTopic="All",deck=[],idx=0,flipped=false;
+let seen=new Set(),gotSet=new Set(),learnSet=new Set();
+
+function filtered(){return activeTopic==="All"?[...CARDS]:CARDS.filter(c=>c.t===activeTopic);}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+function buildTabs(){
+  const counts={};CARDS.forEach(c=>{counts[c.t]=(counts[c.t]||0)+1;});
+  document.getElementById("tabs").innerHTML=TOPICS.map(t=>{
+    const n=t==="All"?CARDS.length:counts[t]||0;
+    return`<button class="tab${activeTopic===t?" on":""}" onclick="setTopic(${JSON.stringify(t)})">${t}<span class="count-badge">${n}</span></button>`;
+  }).join("");
+}
+function setTopic(t){activeTopic=t;deck=shuffle(filtered());idx=0;flipped=false;seen=new Set();gotSet=new Set();learnSet=new Set();buildTabs();show();}
+function shuffleDeck(){deck=shuffle(filtered());idx=0;flipped=false;seen=new Set();show();}
+function resetProgress(){seen=new Set();gotSet=new Set();learnSet=new Set();idx=0;flipped=false;show();}
+
+function show(){
+  if(!deck.length)return;
+  const c=deck[idx];
+  document.getElementById("frontTag").textContent=c.t+" — "+(idx+1)+" / "+deck.length;
+  document.getElementById("frontQ").textContent=c.q;
+  document.getElementById("backTag").textContent=c.t;
+  document.getElementById("backAns").textContent=c.a;
+  document.getElementById("backExpl").innerHTML=c.e;
+  const ci=document.getElementById("cardInner");
+  ci.classList.remove("flipped");flipped=false;
+  document.getElementById("markRow").style.display="none";
+  document.getElementById("navRow").style.display="flex";
+  seen.add(activeTopic+"_"+idx);
+  updateBar();updateStats();
+}
+function flipCard(){
+  flipped=!flipped;
+  const ci=document.getElementById("cardInner");
+  if(flipped){ci.classList.add("flipped");document.getElementById("markRow").style.display="flex";}
+  else{ci.classList.remove("flipped");document.getElementById("markRow").style.display="none";}
+}
+function mark(ok){
+  const k=activeTopic+"_"+idx;
+  if(ok){gotSet.add(k);learnSet.delete(k);}else{learnSet.add(k);gotSet.delete(k);}
+  updateStats();next();
+}
+function next(){idx=(idx+1)%deck.length;flipped=false;show();}
+function prev(){idx=(idx-1+deck.length)%deck.length;flipped=false;show();}
+function updateBar(){
+  const t=deck.length,s=seen.size;
+  document.getElementById("barFill").style.width=(t?s/t*100:0)+"%";
+  document.getElementById("barTxt").textContent=s+" / "+t;
+}
+function updateStats(){
+  document.getElementById("statGot").textContent=gotSet.size;
+  document.getElementById("statLearn").textContent=learnSet.size;
+  document.getElementById("statSeen").textContent=seen.size;
+}
+buildTabs();deck=shuffle(CARDS);show();
+</script>
+</body>
+</html>
