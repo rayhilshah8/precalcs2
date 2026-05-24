@@ -186,21 +186,19 @@
       <div class="formula">tan(θ/2) = ±√((1 − cos θ) / (1 + cos θ))</div>
       <div class="formula">tan(θ/2) = sin θ / (1 + cos θ) <span>(no ± needed)</span></div>
       <div class="formula">tan(θ/2) = (1 − cos θ) / sin θ <span>(no ± needed)</span></div>
-      <div class="note">Sign for sin/cos/first tan form: determined by which quadrant θ/2 falls in.</div>
+      <div class="note">± sign determined by which quadrant θ/2 falls in — use ASTC on θ/2, not θ.</div>
     </div>
 
     <div class="ref-card">
       <h2>Conics — Parabola</h2>
-      <div class="formula">Vertical (up/down): (x − h)² = 4p(y − k)</div>
-      <div class="formula">Horizontal (left/right): (y − k)² = 4p(x − h)</div>
+      <div class="formula">Vertical:   y = a(x − h)² + k</div>
+      <div class="formula">Horizontal: x = a(y − k)² + h</div>
       <h3>Key parts</h3>
       <div class="formula">Vertex: (h, k)</div>
-      <div class="formula">p = distance from vertex to focus = distance from vertex to directrix</div>
-      <div class="formula">Focus: (h, k+p) vertical &nbsp;|&nbsp; (h+p, k) horizontal</div>
-      <div class="formula">Directrix: y = k−p vertical &nbsp;|&nbsp; x = h−p horizontal</div>
-      <div class="formula">p > 0 → opens up/right &nbsp;&nbsp; p < 0 → opens down/left</div>
-      <div class="formula">Latus rectum length = |4p|</div>
-      <div class="note">To convert general form: complete the square on whichever variable is squared.</div>
+      <div class="formula">|a| = 1/(4p)  →  p = 1/(4|a|)  &nbsp;&nbsp;<span>(p is always a positive distance)</span></div>
+      <div class="formula">Focus: p units inside the curve from the vertex</div>
+      <div class="formula">Directrix: p units outside the curve from the vertex</div>
+      <div class="note">To convert general form: complete the square on the squared variable.</div>
     </div>
 
     <div class="ref-card">
@@ -208,28 +206,24 @@
       <div class="formula">(x−h)²/a² + (y−k)²/b² = 1</div>
       <h3>Key parts</h3>
       <div class="formula">Center: (h, k)</div>
-      <div class="formula">a = semi-major axis (always under the <em>larger</em> denominator)</div>
-      <div class="formula">b = semi-minor axis</div>
-      <div class="formula"><strong>c² = a² − b²</strong> &nbsp;&nbsp; (c &lt; a always)</div>
-      <div class="formula">Foci: c units from center along the major axis</div>
-      <div class="formula">a² under x → horizontal major axis; a² under y → vertical</div>
-      <div class="formula">Vertices (major): (h±a, k) or (h, k±a)</div>
-      <div class="formula">Co-vertices (minor): the other direction, ±b from center</div>
-      <div class="formula">Eccentricity: e = c/a, where 0 &lt; e &lt; 1</div>
+      <div class="formula">a² always under (x−h)²; b² always under (y−k)²</div>
+      <div class="formula"><strong>c² = |a² − b²|</strong></div>
+      <div class="formula">If a &gt; b → horizontal major axis, length 2a; Vertices: (h±a, k); Foci: (h±c, k)</div>
+      <div class="formula">If b &gt; a → vertical major axis, length 2b; Vertices: (h, k±b); Foci: (h, k±c)</div>
     </div>
 
     <div class="ref-card">
       <h2>Conics — Hyperbola</h2>
-      <div class="formula">Horizontal: (x−h)²/a² − (y−k)²/b² = 1 <span>(opens left/right)</span></div>
-      <div class="formula">Vertical: (y−k)²/a² − (x−h)²/b² = 1 <span>(opens up/down)</span></div>
+      <div class="formula">Horizontal (opens left/right): (x−h)²/a² − (y−k)²/b² = 1</div>
+      <div class="formula">Vertical (opens up/down): (y−k)²/a² − (x−h)²/b² = 1</div>
+      <div class="formula">a² always under (x−h)²; b² always under (y−k)²</div>
       <h3>Key parts</h3>
       <div class="formula">Center: (h, k)</div>
-      <div class="formula"><strong>c² = a² + b²</strong> &nbsp;&nbsp; (c &gt; a always)</div>
+      <div class="formula"><strong>c² = a² + b²</strong></div>
       <div class="formula">Vertices: a units from center along the transverse axis</div>
       <div class="formula">Foci: c units from center along the transverse axis</div>
-      <div class="formula">Asymptotes (horizontal): y − k = ±(b/a)(x − h)</div>
-      <div class="formula">Asymptotes (vertical): y − k = ±(a/b)(x − h)</div>
-      <div class="formula">Eccentricity: e = c/a, where e &gt; 1</div>
+      <div class="formula">Asymptotes: use point-slope through (h, k) with slopes ±b/a</div>
+      <div class="formula">y − k = ±(b/a)(x − h)</div>
     </div>
 
     <div class="ref-card">
@@ -446,18 +440,18 @@ const CARDS=[
 {t:"Conics: Ellipse",q:"Find the foci of the ellipse:\nx\u00b2/16 + y\u00b2/7 = 1",a:"Foci at (\u00b13, 0)",e:"a\u00b2=16, b\u00b2=7. c\u00b2=16\u22127=9\u2192c=3. Foci: (\u00b13,0). Horizontal major axis since 16>7."},
 {t:"Conics: Ellipse",q:"Put in graphable form:\n25x\u00b2 + 4y\u00b2 \u2212 150x + 8y + 129 = 0",a:"(x\u22123)\u00b2/4 + (y+1)\u00b2/25 = 1",e:"25(x\u22123)\u00b2\u2212225+4(y+1)\u00b2\u22124+129=0 \u2192 25(x\u22123)\u00b2+4(y+1)\u00b2=100. Divide by 100: (x\u22123)\u00b2/4+(y+1)\u00b2/25=1. Vertical major axis."},
 {t:"Conics: Ellipse",q:"An ellipse has center (0,0), passes through (4,0) and (0,3). Write its equation.",a:"x\u00b2/16 + y\u00b2/9 = 1",e:"Passes through (4,0) \u2192 a=4 (horizontal vertex). Passes through (0,3) \u2192 b=3 (vertical vertex). x\u00b2/16+y\u00b2/9=1."},
-{t:"Conics: Ellipse",q:"For the ellipse x\u00b2/9 + y\u00b2/4 = 1, find the co-vertices and the length of the minor axis.",a:"Co-vertices (0, \u00b12); minor axis length = 4",e:"b\u00b2=4\u2192b=2. Co-vertices are the endpoints of the minor (shorter) axis: (0,\u00b12). Length of minor axis = 2b = 4."},
+{t:"Conics: Ellipse",q:"For the ellipse x\u00b2/9 + y\u00b2/4 = 1, identify the major axis direction, its length, and the foci.",a:"a=3, b=2. a>b \u2192 horizontal. Major axis = 2a = 6. Foci: (\u00b1\u221a5, 0)",e:"a\u00b2=9 (under x), b\u00b2=4 (under y). a>b \u2192 horizontal major axis of length 2a=6. c\u00b2=|9\u22124|=5\u2192c=\u221a5. Foci: (\u00b1\u221a5, 0)."},
 
 // ── CONICS: HYPERBOLA (10 cards) ─────────────────────────────────────
 {t:"Conics: Hyperbola",q:"Find center, vertices, foci, and asymptotes of:\n(x\u22121)\u00b2/9 \u2212 (y+2)\u00b2/16 = 1",a:"Center (1,\u22122), Vertices (4,\u22122)&(\u22122,\u22122)\nFoci (6,\u22122)&(\u22124,\u22122), Asymptotes y+2=\u00b1(4/3)(x\u22121)",e:"x\u00b2 first \u2192 horizontal. a=3, b=4. c\u00b2=9+16=25\u2192c=5. Asymptotes: y+2=\u00b1(b/a)(x\u22121)=\u00b1(4/3)(x\u22121)."},
 {t:"Conics: Hyperbola",q:"Put in graphable form:\n4y\u00b2 \u2212 x\u00b2 \u2212 24y + 4x + 28 = 0",a:"(y\u22123)\u00b2 \u2212 (x\u22122)\u00b2/4 = 1 \u2014 vertical hyperbola",e:"4(y\u22123)\u00b2\u2212(x\u22122)\u00b2=4. Divide by 4: (y\u22123)\u00b2\u2212(x\u22122)\u00b2/4=1. y\u00b2 positive\u2192opens up/down."},
 {t:"Conics: Hyperbola",q:"Write the equation of a hyperbola: center (0,0), vertices (\u00b15,0), foci (\u00b113,0).",a:"x\u00b2/25 \u2212 y\u00b2/144 = 1",e:"Horizontal. a=5, c=13. b\u00b2=169\u221225=144."},
-{t:"Conics: Hyperbola",q:"Find asymptotes of:\n9y\u00b2 \u2212 4x\u00b2 + 36y + 8x \u2212 4 = 0",a:"y + 2 = \u00b1(2/3)(x \u2212 1)",e:"(y+2)\u00b2/4\u2212(x\u22121)\u00b2/9=1. a=2, b=3. Vertical: y+2=\u00b1(a/b)(x\u22121)=\u00b1(2/3)(x\u22121)."},
+{t:"Conics: Hyperbola",q:"Find asymptotes of:\n9y\u00b2 \u2212 4x\u00b2 + 36y + 8x \u2212 4 = 0",a:"y + 2 = \u00b1(3/2)(x \u2212 1)",e:"(y+2)\u00b2/4\u2212(x\u22121)\u00b2/9=1. a\u00b2=9 (under x) \u2192 a=3. b\u00b2=4 (under y) \u2192 b=2. Asymptotes: y+2=\u00b1(b/a)(x\u22121)=\u00b1(2/3)(x\u22121)... wait: b=2 and a=3, so b/a=2/3. y+2=\u00b1(2/3)(x\u22121). <strong>Answer: y+2=\u00b1(2/3)(x\u22121).</strong>"},
 {t:"Conics: Hyperbola",q:"For x\u00b2/4 \u2212 y\u00b2/5 = 1, find vertices, foci, and eccentricity.",a:"Vertices (\u00b12,0), Foci (\u00b13,0), e = 3/2",e:"a=2, b\u00b2=5. c\u00b2=4+5=9\u2192c=3. e=3/2. (Hyperbolas always have e>1.)"},
 {t:"Conics: Hyperbola",q:"Write the equation of a hyperbola with vertices (0, \u00b14) and foci (0, \u00b15).",a:"y\u00b2/16 \u2212 x\u00b2/9 = 1",e:"Vertices on y-axis \u2192 vertical. a=4, c=5. b\u00b2=25\u221216=9. y\u00b2/16\u2212x\u00b2/9=1."},
 {t:"Conics: Hyperbola",q:"For the hyperbola y\u00b2/9 \u2212 x\u00b2/16 = 1, write the asymptote equations.",a:"y = \u00b1(3/4)x",e:"Vertical hyperbola. Asymptotes: y=\u00b1(a/b)x=\u00b1(3/4)x. For vertical hyperbolas, the slope is a/b (not b/a like horizontal ones)."},
 {t:"Conics: Hyperbola",q:"Put in graphable form:\nx\u00b2 \u2212 4y\u00b2 \u2212 6x + 32y \u2212 59 = 0",a:"(x\u22123)\u00b2/4 \u2212 (y\u22124)\u00b2/1 = 1",e:"(x\u22123)\u00b2\u22129\u22124(y\u22124)\u00b2+64\u221259=0 \u2192 (x\u22123)\u00b2\u22124(y\u22124)\u00b2=4. Divide by 4: (x\u22123)\u00b2/4\u2212(y\u22124)\u00b2=1. Horizontal."},
-{t:"Conics: Hyperbola",q:"What is the eccentricity of x\u00b2/25 \u2212 y\u00b2/144 = 1?",a:"e = 13/5",e:"a=5, b=12. c\u00b2=25+144=169\u2192c=13. e=c/a=13/5=2.6. The larger the eccentricity, the more \u2018open\u2019 the branches."},
+{t:"Conics: Hyperbola",q:"For x\u00b2/25 \u2212 y\u00b2/144 = 1, find the vertices, foci, and asymptotes.",a:"Vertices (\u00b15, 0), Foci (\u00b113, 0)\nAsymptotes: y = \u00b1(12/5)x",e:"a\u00b2=25\u2192a=5 (under x), b\u00b2=144\u2192b=12 (under y). c\u00b2=25+144=169\u2192c=13. Vertices (\u00b15,0), foci (\u00b113,0). Asymptotes: y=\u00b1(b/a)x=\u00b1(12/5)x."},
 {t:"Conics: Hyperbola",q:"A hyperbola has center (0,0), passes through (5,0), and has asymptotes y=\u00b1(4/3)x. Write its equation.",a:"x\u00b2/25 \u2212 y\u00b2/(400/9) = 1",e:"Vertex (5,0) \u2192 a=5, horizontal. Slope of asymptote=b/a=4/3 \u2192 b=(4/3)\u00d75=20/3. b\u00b2=400/9. x\u00b2/25\u2212y\u00b2/(400/9)=1."},
 
 // ── RADIANS & DEGREES (12 cards) ─────────────────────────────────────
@@ -681,273 +675,224 @@ function setMode(m){
 // ── FORMULA CARDS ──────────────────────────────────────────────────
 const FCARDS=[
 
-// TRIG GRAPHING
-{t:"Graphing",q:"What does each letter control in y = A·trig(Bx − C) + D?",
-a:"A = amplitude/flip, B → period, C/B = phase shift, D = vertical shift",
-e:"<strong>A:</strong> |A| is amplitude; negative A reflects over the midline.<br><strong>B:</strong> Period = 2π/|B| for sin/cos, π/|B| for tan/cot.<br><strong>C/B:</strong> Phase shift — factor out B first, then read it off. Positive = right.<br><strong>D:</strong> Midline at y = D. Range for sin/cos: [D−|A|, D+|A|]."},
+// ── GRAPHING ─────────────────────────────────────────────────────────
+{t:"Graphing",q:"What is the general form of a transformed trig graph, and what does each variable represent?",
+a:"y = A·trig(Bx − C) + D\nA = amplitude (|A|) and reflection\nB → period\nC/B = phase shift\nD = vertical shift / midline",
+e:"Factor out B first to read the phase shift: Bx−C = B(x−C/B). The shift is C/B right. If inside is Bx+C, factor as B(x+C/B) → shift is C/B left."},
 
-{t:"Graphing",q:"What is the period formula for sin, cos, sec, csc vs. tan, cot?",
-a:"sin/cos/sec/csc: Period = 2π/|B|\ntan/cot: Period = π/|B|",
-e:"Tangent and cotangent complete a full cycle in half the distance that sine and cosine do. Their natural period is π, not 2π. Multiplying x by B compresses or stretches accordingly."},
+{t:"Graphing",q:"What is the period formula for sin, cos, sec, csc? And for tan, cot?",
+a:"sin, cos, sec, csc: Period = 2π / |B|\ntan, cot: Period = π / |B|",
+e:"Tan and cot have a natural period of π (half that of sin/cos). Multiplying x by B compresses the period by factor B."},
+
+{t:"Graphing",q:"What is the range of y = A·sin(Bx−C) + D?",
+a:"[D − |A|,  D + |A|]",
+e:"Sin oscillates ±1, scaled by |A| to ±|A|, then shifted up by D. The negative on A flips the graph but doesn't change the range since we use |A|."},
 
 {t:"Graphing",q:"Where are the vertical asymptotes of y = tan(Bx − C)?",
-a:"Where Bx − C = π/2 + nπ (for any integer n)",
-e:"Tangent = sin/cos, so it's undefined wherever cos = 0, which happens at π/2 + nπ. Set the argument equal to those values and solve for x to find the asymptote locations."},
+a:"Where Bx − C = π/2 + nπ",
+e:"Tan = sin/cos, undefined where cos = 0. Set the argument equal to π/2 + nπ and solve for x."},
 
 {t:"Graphing",q:"Where are the vertical asymptotes of y = cot(Bx − C)?",
-a:"Where Bx − C = nπ (for any integer n)",
-e:"Cotangent = cos/sin, undefined where sin = 0, which is at every multiple of π. Set the argument equal to nπ and solve for x."},
+a:"Where Bx − C = nπ",
+e:"Cot = cos/sin, undefined where sin = 0. Set the argument equal to nπ and solve for x."},
 
-{t:"Graphing",q:"How do you find the phase shift when the equation is y = sin(3x − π)?",
-a:"Factor out 3 first: sin(3(x − π/3)). Phase shift = π/3 to the right.",
-e:"<strong>Always factor out B before reading the shift.</strong> Writing 3x − π as 3(x − π/3) reveals that C/B = π/3. Positive result = shift right. If it were 3(x + π/3) the shift would be π/3 left."},
+{t:"Graphing",q:"Where are the vertical asymptotes of y = sec(Bx − C) and y = csc(Bx − C)?",
+a:"sec: wherever cos(Bx−C) = 0  →  Bx−C = π/2 + nπ\ncsc: wherever sin(Bx−C) = 0  →  Bx−C = nπ",
+e:"sec = 1/cos and csc = 1/sin, so their asymptotes are exactly where the underlying sin or cos equals zero."},
 
-{t:"Graphing",q:"What is the range of y = A sin(Bx − C) + D?",
-a:"[D − |A|, D + |A|]",
-e:"Sin oscillates between −1 and +1. Multiplying by A stretches it to [−|A|, |A|]. Adding D shifts that interval up or down. The negative on A flips the graph but doesn't change the range since we use |A|."},
-
-// PYTHAGOREAN IDENTITIES
+// ── PYTHAGOREAN IDENTITIES ────────────────────────────────────────────
 {t:"Pythagorean IDs",q:"State all three Pythagorean identities.",
 a:"sin²x + cos²x = 1\ntan²x + 1 = sec²x\n1 + cot²x = csc²x",
-e:"All three come from dividing sin²x + cos²x = 1 by different things:<br>÷ cos²x → tan²x + 1 = sec²x<br>÷ sin²x → 1 + cot²x = csc²x<br>So you really only need to memorize one and derive the others."},
+e:"The last two come from dividing the first by cos²x or sin²x respectively."},
 
-{t:"Pythagorean IDs",q:"Express sin²x in terms of cos, and cos²x in terms of sin.",
+{t:"Pythagorean IDs",q:"State all rearrangements of sin²x + cos²x = 1.",
 a:"sin²x = 1 − cos²x\ncos²x = 1 − sin²x",
-e:"Direct rearrangements of sin²x + cos²x = 1. Use these to swap between sin and cos when simplifying — particularly helpful when you have a squared term you want to eliminate."},
+e:"Use these to swap between sin² and cos² when simplifying."},
 
-{t:"Pythagorean IDs",q:"Express tan²x in terms of sec, and cot²x in terms of csc.",
-a:"tan²x = sec²x − 1\ncot²x = csc²x − 1",
-e:"Rearrangements of the other two Pythagorean identities. These come up in trig equations when you need to replace sec² or csc² with something involving tan or cot."},
+{t:"Pythagorean IDs",q:"State all rearrangements of tan²x + 1 = sec²x.",
+a:"tan²x = sec²x − 1\nsec²x = tan²x + 1",
+e:"Use tan²x = sec²x − 1 to replace tan² when you have sec in the expression, or vice versa."},
 
-// RECIPROCAL & QUOTIENT
-{t:"Reciprocal & Quotient",q:"Write all six reciprocal and quotient identities.",
-a:"csc x = 1/sin x\nsec x = 1/cos x\ncot x = 1/tan x\ntan x = sin x/cos x\ncot x = cos x/sin x",
-e:"The reciprocal identities pair up: sin↔csc, cos↔sec, tan↔cot. The quotient identities show tan and cot as ratios of sin and cos. These are used constantly to rewrite expressions in a simpler form."},
+{t:"Pythagorean IDs",q:"State all rearrangements of 1 + cot²x = csc²x.",
+a:"cot²x = csc²x − 1\ncsc²x = 1 + cot²x",
+e:"Use cot²x = csc²x − 1 to replace cot² when you have csc in the expression."},
 
-// EVEN / ODD
-{t:"Even & Odd",q:"Which trig functions are even, and which are odd?",
-a:"Even (cos, sec): f(−x) = f(x)\nOdd (sin, tan, csc, cot): f(−x) = −f(x)",
-e:"<strong>Even:</strong> cos(−x) = cos x, sec(−x) = sec x. The graph is symmetric about the y-axis.<br><strong>Odd:</strong> sin(−x) = −sin x, and same for tan, csc, cot. The graph has 180° rotational symmetry about the origin."},
+// ── RECIPROCAL & QUOTIENT ─────────────────────────────────────────────
+{t:"Reciprocal & Quotient",q:"State the three reciprocal identities.",
+a:"csc x = 1/sin x\nsec x = 1/cos x\ncot x = 1/tan x",
+e:"They pair up: sin↔csc, cos↔sec, tan↔cot. Each is the reciprocal of the other."},
 
-{t:"Even & Odd",q:"Simplify cos(−x)/sin(−x).",
-a:"−cot x",
-e:"cos(−x) = cos x (even). sin(−x) = −sin x (odd).<br>cos x / (−sin x) = −cos x/sin x = −cot x."},
+{t:"Reciprocal & Quotient",q:"State the two quotient identities.",
+a:"tan x = sin x / cos x\ncot x = cos x / sin x",
+e:"Tan and cot can always be rewritten in terms of sin and cos using these. This is often the first step in simplifying a complex trig expression."},
 
-// COFUNCTION
+// ── EVEN / ODD ────────────────────────────────────────────────────────
+{t:"Even & Odd",q:"Which trig functions are even? State the identity.",
+a:"cos(−x) = cos x\nsec(−x) = sec x",
+e:"Even functions are symmetric about the y-axis. Only cos and sec are even among the six trig functions."},
+
+{t:"Even & Odd",q:"Which trig functions are odd? State the identities.",
+a:"sin(−x) = −sin x\ntan(−x) = −tan x\ncsc(−x) = −csc x\ncot(−x) = −cot x",
+e:"Odd functions satisfy f(−x) = −f(x). Sin, tan, csc, and cot are all odd. Their graphs have 180° rotational symmetry about the origin."},
+
+// ── COFUNCTION IDENTITIES ─────────────────────────────────────────────
 {t:"Cofunction IDs",q:"State all six cofunction identities.",
-a:"sin(π/2−x)=cos x, cos(π/2−x)=sin x\ntan(π/2−x)=cot x, cot(π/2−x)=tan x\nsec(π/2−x)=csc x, csc(π/2−x)=sec x",
-e:"Each trig function equals its co-function of the complementary angle. 'Co-' literally means complement. These come from the fact that in a right triangle, the two acute angles add to π/2, so sin of one = cos of the other."},
+a:"sin(π/2 − x) = cos x\ncos(π/2 − x) = sin x\ntan(π/2 − x) = cot x\ncot(π/2 − x) = tan x\nsec(π/2 − x) = csc x\ncsc(π/2 − x) = sec x",
+e:"Each trig function equals its co-function at the complementary angle. 'Co-' literally means complement. In a right triangle, the two acute angles add to π/2, so sin of one equals cos of the other."},
 
-{t:"Cofunction IDs",q:"What does cos(π/2 + x) simplify to? And sin(π/2 + x)?",
-a:"cos(π/2 + x) = −sin x\nsin(π/2 + x) = cos x",
-e:"Use sum formulas:<br>cos(π/2+x) = cos(π/2)cos x − sin(π/2)sin x = (0)cos x − (1)sin x = −sin x.<br>sin(π/2+x) = sin(π/2)cos x + cos(π/2)sin x = cos x. These are phase-shift relationships."},
-
-// SUM & DIFFERENCE
+// ── SUM & DIFFERENCE ──────────────────────────────────────────────────
 {t:"Sum & Difference",q:"State the sum and difference formulas for sin.",
 a:"sin(A + B) = sin A cos B + cos A sin B\nsin(A − B) = sin A cos B − cos A sin B",
-e:"Memory trick: <strong>sin sum = same signs</strong> (+ on left → + in formula). The pattern is always sincos + cossin. Be careful — the two terms have different function orders."},
+e:"The sign in the formula matches the sign of the input: + stays +, − stays −."},
 
 {t:"Sum & Difference",q:"State the sum and difference formulas for cos.",
 a:"cos(A + B) = cos A cos B − sin A sin B\ncos(A − B) = cos A cos B + sin A sin B",
-e:"<strong>Signs flip for cos</strong> — this is the most common mistake. cos(A+B) has a minus, cos(A−B) has a plus. Memory: cos is the 'contrary' one. Pattern: coscos ∓ sinsin."},
+e:"Signs flip for cos — the most common mistake. cos(A+B) gets a minus; cos(A−B) gets a plus."},
 
 {t:"Sum & Difference",q:"State the sum and difference formulas for tan.",
-a:"tan(A ± B) = (tan A ± tan B) / (1 ∓ tan A tan B)",
-e:"The ∓ in the denominator means the sign is opposite to the ± in the numerator: sum → minus in denominator, difference → plus in denominator. Derived by writing tan = sin/cos and applying the sin/cos sum formulas."},
+a:"tan(A + B) = (tan A + tan B) / (1 − tan A tan B)\ntan(A − B) = (tan A − tan B) / (1 + tan A tan B)",
+e:"The denominator sign is always opposite to the numerator sign. Sum → minus in denominator. Difference → plus in denominator."},
 
-{t:"Sum & Difference",q:"How do you find an exact value like sin(105°) using sum/difference formulas?",
-a:"Write 105° as a sum/difference of two special angles: 60° + 45°. Then apply sin(A+B).",
-e:"Special angles are 0°, 30°, 45°, 60°, 90° (and their multiples). Find a combination that reaches your target: 105 = 60+45, or 135−30, etc. Then plug into the formula and evaluate each piece using the unit circle."},
-
-{t:"Sum & Difference",q:"Simplify: sin(A+B) + sin(A−B)",
-a:"2 sin A cos B",
-e:"sin(A+B) = sinAcosB + cosAsinB.<br>sin(A−B) = sinAcosB − cosAsinB.<br>Add: the cosAsinB terms cancel, leaving 2sinAcosB. This is the reverse of a sum formula."},
-
-{t:"Sum & Difference",q:"Simplify: cos(A+B) + cos(A−B)",
-a:"2 cos A cos B",
-e:"cos(A+B) = cosAcosB − sinAsinB.<br>cos(A−B) = cosAcosB + sinAsinB.<br>Add: sinAsinB terms cancel, leaving 2cosAcosB."},
-
-// DOUBLE ANGLE
+// ── DOUBLE ANGLE ──────────────────────────────────────────────────────
 {t:"Double Angle",q:"State the double angle formula for sin.",
 a:"sin 2x = 2 sin x cos x",
-e:"Derived from sin(A+B) with A=B=x: sin(x+x) = sinx cosx + cosx sinx = 2sinx cosx. This is the most-used double angle formula — also appears as the reverse of certain products."},
+e:"Derived from sin(A+B) with A=B=x."},
 
-{t:"Double Angle",q:"State all three versions of the double angle formula for cos 2x.",
+{t:"Double Angle",q:"State all three double angle formulas for cos 2x.",
 a:"cos 2x = cos²x − sin²x\ncos 2x = 1 − 2 sin²x\ncos 2x = 2 cos²x − 1",
-e:"All three come from cos(x+x) = cos²x − sin²x, then substituting sin²x = 1−cos²x or cos²x = 1−sin²x.<br>Use the version that matches what's already in your expression — whichever eliminates the function you don't want."},
+e:"All equivalent. Use whichever version eliminates the function you don't want: use 1−2sin²x to get rid of cos, use 2cos²x−1 to get rid of sin."},
 
 {t:"Double Angle",q:"State the double angle formula for tan.",
 a:"tan 2x = 2 tan x / (1 − tan²x)",
-e:"Derived from tan(A+B) with A=B=x: (tanx+tanx)/(1−tanx·tanx) = 2tanx/(1−tan²x). Less common than sin/cos versions but still tested."},
+e:"Derived from tan(A+B) with A=B=x."},
 
-{t:"Double Angle",q:"How do you use cos 2x = 1 − 2sin²x vs. cos 2x = 2cos²x − 1?",
-a:"Use 1−2sin²x to eliminate cos. Use 2cos²x−1 to eliminate sin.",
-e:"If your expression has cos²x and you want only sin, use cos²x = (1+cos2x)/2 (or rearrange). If it has sin²x and you want only cos, use sin²x = (1−cos2x)/2. Choose whichever version collapses the expression into one trig function."},
-
-// POWER REDUCING
+// ── POWER REDUCING ────────────────────────────────────────────────────
 {t:"Power Reducing",q:"State the three power-reducing identities.",
 a:"sin²x = (1 − cos 2x) / 2\ncos²x = (1 + cos 2x) / 2\ntan²x = (1 − cos 2x) / (1 + cos 2x)",
-e:"These come directly from the cos 2x double-angle formulas rearranged. They reduce squared trig functions to first-power expressions — essential in calculus for integrating sin² and cos²."},
+e:"These reduce squared trig functions to first-power expressions. Come directly from rearranging the cos 2x double angle formulas."},
 
-{t:"Power Reducing",q:"Use a power-reducing identity to rewrite sin²x cos²x.",
-a:"(1/4) sin²2x, or equivalently (1 − cos 4x)/8",
-e:"sin²x·cos²x = [(1−cos2x)/2]·[(1+cos2x)/2] = (1−cos²2x)/4 = sin²2x/4.<br>Then power-reduce sin²2x = (1−cos4x)/2: result = (1−cos4x)/8."},
-
-// HALF ANGLE
+// ── HALF ANGLE ────────────────────────────────────────────────────────
 {t:"Half Angle",q:"State the half-angle formulas for sin and cos.",
-a:"sin(θ/2) = ±√((1 − cos θ)/2)\ncos(θ/2) = ±√((1 + cos θ)/2)",
-e:"The sign depends on which quadrant θ/2 falls in — determine that first, then choose + or −.<br>Memory: sin gets (1−cosθ) under the radical, cos gets (1+cosθ). The 'minus for sin' pairing makes sense because sin is 0 at θ=0 and cos is 1."},
+a:"sin(θ/2) = ±√((1 − cos θ) / 2)\ncos(θ/2) = ±√((1 + cos θ) / 2)",
+e:"Sign is determined by which quadrant θ/2 is in. Sin gets (1−cosθ), cos gets (1+cosθ) — sin has the minus."},
 
-{t:"Half Angle",q:"State all three versions of the half-angle formula for tan.",
-a:"tan(θ/2) = ±√((1−cosθ)/(1+cosθ))\ntan(θ/2) = sinθ / (1+cosθ)\ntan(θ/2) = (1−cosθ) / sinθ",
-e:"The two non-square-root versions have no ± — the sign is built in automatically. They're derived by multiplying numerator and denominator of the ± form by (1+cosθ) or (1−cosθ) and using Pythagorean identities. Use these when you want to avoid figuring out the quadrant sign."},
+{t:"Half Angle",q:"State all three half-angle formulas for tan.",
+a:"tan(θ/2) = ±√((1 − cos θ) / (1 + cos θ))\ntan(θ/2) = sin θ / (1 + cos θ)\ntan(θ/2) = (1 − cos θ) / sin θ\n± depends on the quadrant of θ/2",
+e:"The last two have no ± — the sign is built in automatically. Use them to avoid figuring out the quadrant. For the first form, determine which quadrant θ/2 falls in and apply ASTC."},
 
-{t:"Half Angle",q:"How do you determine the sign in sin(θ/2) = ±√((1−cosθ)/2)?",
-a:"Find which quadrant θ/2 is in, then use the ASTC rule for sin.",
-e:"Example: if θ = 300°, then θ/2 = 150°, which is in QII. Sin is positive in QII, so take +. The formula gives a positive square root. Always check the quadrant of the half angle, not the original angle."},
+{t:"Half Angle",q:"How do you determine the ± sign in a half-angle formula?",
+a:"Find which quadrant θ/2 is in, then apply ASTC for that function.\n(Use the quadrant of θ/2, not θ.)",
+e:"Example: θ = 300° → θ/2 = 150° → QII. In QII, sin is positive (+), cos is negative (−). Always use the quadrant of the half-angle, not the original angle."},
 
-// CONICS — PARABOLA
-{t:"Parabola",q:"What is the standard form of a vertical parabola, and what does each part mean?",
-a:"(x − h)² = 4p(y − k)\nVertex (h,k), p = distance to focus and directrix",
-e:"p > 0 opens up, p < 0 opens down. Focus is at (h, k+p) — inside the curve. Directrix is y = k−p — outside the curve, same distance from vertex as the focus. Every point on the parabola is equidistant from focus and directrix."},
+// ── PARABOLA ──────────────────────────────────────────────────────────
+{t:"Parabola",q:"State the amplitude-vertex form of a parabola (vertical and horizontal).",
+a:"Vertical:   y = a(x − h)² + k\nHorizontal: x = a(y − k)² + h\nVertex: (h, k)",
+e:"The sign of a tells you which way it opens: vertical opens up (a>0) or down (a<0); horizontal opens right (a>0) or left (a<0)."},
 
-{t:"Parabola",q:"What is the standard form of a horizontal parabola?",
-a:"(y − k)² = 4p(x − h)\nVertex (h,k), opens right if p>0, left if p<0",
-e:"The y is squared (not x), so it opens sideways. Focus: (h+p, k). Directrix: x = h−p. To remember which way it opens: the focus is always inside the cup, and the parabola opens toward the focus."},
+{t:"Parabola",q:"How do you convert between a and p in a parabola?",
+a:"|a| = 1/(4p)  →  p = 1/(4|a|)\np is always positive (it's a distance)",
+e:"Use |a| since p is always a positive distance regardless of which way the parabola opens."},
 
-{t:"Parabola",q:"How do you convert a general-form parabola to standard form?",
-a:"Complete the square on the squared variable. Balance the equation.",
-e:"Example: x²+4x−8y+12=0. Group x terms: (x²+4x)=8y−12. Complete square: (x+2)²−4=8y−12 → (x+2)²=8y−8=8(y−1). Vertex (−2,1), 4p=8, p=2, opens up."},
+{t:"Parabola",q:"Given a parabola in amplitude-vertex form, how do you find the focus and directrix?",
+a:"Find p = 1/(4|a|)\nFocus: p units inside the curve from the vertex\nDirectrix: p units outside the curve from the vertex",
+e:"'Inside' means toward the opening. Example: y=a(x−h)²+k opening up → focus is p above vertex, directrix is p below. Opening down → reversed. For horizontal: left or right depending on direction."},
 
-{t:"Parabola",q:"A parabola has vertex (h, k) and focus (h, k+p). What is its directrix?",
-a:"y = k − p",
-e:"The directrix is always on the opposite side of the vertex from the focus, at the same distance. If p=3, focus is 3 above vertex, directrix is 3 below vertex. Directrix for horizontal parabola: x = h−p."},
+// ── ELLIPSE ───────────────────────────────────────────────────────────
+{t:"Ellipse",q:"State the standard form of an ellipse. How are a, b, c defined?",
+a:"(x−h)²/a² + (y−k)²/b² = 1\na² always under (x−h)², b² always under (y−k)²\nc² = |a² − b²|\nMajor axis = 2a if a > b (horizontal), or 2b if b > a (vertical)",
+e:"a is always with x and b is always with y. The larger one determines the direction of the major axis. Foci are c units from center along the major axis direction."},
 
-// CONICS — ELLIPSE
-{t:"Ellipse",q:"State the standard form of an ellipse and identify a, b, c.",
-a:"(x−h)²/a² + (y−k)²/b² = 1\na = semi-major, b = semi-minor, c² = a² − b²",
-e:"a² is always the <strong>larger</strong> denominator. If a² is under x, the major axis is horizontal. If under y, it's vertical. Foci are c units from center along the major axis. Always: a > b > 0, and c < a."},
+{t:"Ellipse",q:"For an ellipse (x−h)²/a² + (y−k)²/b² = 1, state the vertices and foci.",
+a:"If a > b → horizontal major axis:\n  Vertices: (h ± a, k)\n  Foci: (h ± c, k)\nIf b > a → vertical major axis:\n  Vertices: (h, k ± b)\n  Foci: (h, k ± c)\nc² = |a² − b²|",
+e:"a is always with x, b always with y. The larger one determines which axis is major. Foci always lie along the major axis."},
 
-{t:"Ellipse",q:"For an ellipse, how do you find c and what does it represent?",
-a:"c² = a² − b²; c = distance from center to each focus",
-e:"Think of it as a² = b² + c² rearranged. The foci are always on the major axis. For horizontal ellipses: foci at (h±c, k). For vertical: foci at (h, k±c). Eccentricity e = c/a, always between 0 and 1."},
+// ── HYPERBOLA ─────────────────────────────────────────────────────────
+{t:"Hyperbola",q:"State both standard forms of a hyperbola.",
+a:"Horizontal (opens left/right): (x−h)²/a² − (y−k)²/b² = 1\nVertical (opens up/down):     (y−k)²/a² − (x−h)²/b² = 1\na² always under (x−h)², b² always under (y−k)²",
+e:"The positive term tells you which direction it opens — x positive → horizontal, y positive → vertical. a and b are fixed to their axes regardless."},
 
-{t:"Ellipse",q:"What are the vertices and co-vertices of (x−h)²/25 + (y−k)²/9 = 1?",
-a:"Vertices: (h±5, k) — horizontal major axis\nCo-vertices: (h, k±3)",
-e:"a²=25→a=5 (larger denominator, under x → horizontal). b²=9→b=3. Vertices are the endpoints of the major axis (±a from center). Co-vertices are endpoints of the minor axis (±b from center, perpendicular direction)."},
+{t:"Hyperbola",q:"State the relationship c² = a² + b² for a hyperbola.",
+a:"c² = a² + b²\nc = distance from center to each focus",
+e:"Unlike ellipses (which subtract), hyperbolas add. So c is always larger than both a and b."},
 
-{t:"Ellipse",q:"How do you put 4x²+9y²−16x+18y−11=0 into graphable form?",
-a:"Complete the square on both x and y, then divide to get = 1.",
-e:"Group: 4(x²−4x)+9(y²+2y)=11. Complete: 4(x−2)²−16+9(y+1)²−9=11 → 4(x−2)²+9(y+1)²=36. Divide by 36: (x−2)²/9+(y+1)²/4=1. Center (2,−1), a=3 (horiz), b=2."},
+{t:"Hyperbola",q:"How do you write the asymptotes of a hyperbola?",
+a:"Use point-slope form through center (h, k) with slopes ±b/a:\ny − k = ±(b/a)(x − h)",
+e:"The slope is always ±b/a — b is always with y and a is always with x, so b/a is the natural rise-over-run. Both horizontal and vertical hyperbolas use the same slope formula."},
 
-// CONICS — HYPERBOLA
-{t:"Hyperbola",q:"State both standard forms of a hyperbola and how to tell them apart.",
-a:"Horizontal: (x−h)²/a² − (y−k)²/b² = 1\nVertical: (y−k)²/a² − (x−h)²/b² = 1",
-e:"<strong>Whichever variable is positive tells you which direction it opens.</strong> x positive → opens left/right. y positive → opens up/down. The transverse axis (connecting the vertices) is always along the positive term's axis."},
+// ── RADIANS & DEGREES ─────────────────────────────────────────────────
+{t:"Radians & Degrees",q:"State the formulas for converting between degrees and radians.",
+a:"Degrees → Radians: multiply by π/180\nRadians → Degrees: multiply by 180/π",
+e:"π radians = 180°, so multiplying by π/180 or 180/π converts while canceling the unwanted unit."},
 
-{t:"Hyperbola",q:"For a hyperbola, how do you find c and what does it represent?",
-a:"c² = a² + b²; c = distance from center to each focus",
-e:"Unlike ellipses (c²=a²−b²), hyperbolas ADD: c²=a²+b². So c>a always. Eccentricity e=c/a>1 always for hyperbolas. The foci are farther from the center than the vertices."},
+{t:"Radians & Degrees",q:"State the formulas for complement and supplement of an angle θ.",
+a:"Complement: π/2 − θ  (only exists if θ < π/2)\nSupplement: π − θ  (only exists if θ < π)",
+e:"Two angles are complementary if they add to 90° (π/2). Supplementary if they add to 180° (π)."},
 
-{t:"Hyperbola",q:"State the asymptote formulas for horizontal and vertical hyperbolas.",
-a:"Horizontal: y−k = ±(b/a)(x−h)\nVertical: y−k = ±(a/b)(x−h)",
-e:"For horizontal: slope = ±b/a (b over a). For vertical: slope = ±a/b (a over b — flipped). Memory: for horizontal, a is under x so it's in the denominator of the slope. The asymptotes pass through the center (h,k)."},
+// ── UNIT CIRCLE ───────────────────────────────────────────────────────
+{t:"Unit Circle",q:"State sin, cos, and tan for 0°, 30°, 45°, 60°, 90°.",
+a:"0°:  sin=0, cos=1, tan=0\n30°: sin=½, cos=√3/2, tan=√3/3\n45°: sin=√2/2, cos=√2/2, tan=1\n60°: sin=√3/2, cos=½, tan=√3\n90°: sin=1, cos=0, tan=undef",
+e:"Memory for sin: 0, ½, √2/2, √3/2, 1 — think of it as √0/2, √1/2, √2/2, √3/2, √4/2. Cos is the same list in reverse."},
 
-{t:"Hyperbola",q:"What is the key difference between the ellipse formula c²=a²−b² and the hyperbola formula c²=a²+b²?",
-a:"Ellipse subtracts (c<a); Hyperbola adds (c>a)",
-e:"For ellipses, foci are inside the curve, closer to center than vertices: c<a. For hyperbolas, foci are outside the vertices: c>a. This is why e<1 for ellipses and e>1 for hyperbolas."},
-
-// RADIANS & DEGREES
-{t:"Radians & Degrees",q:"How do you convert degrees to radians and radians to degrees?",
-a:"Degrees → Radians: × π/180\nRadians → Degrees: × 180/π",
-e:"Think of it as a unit conversion. π radians = 180°, so multiplying by π/180 or 180/π converts while canceling the unwanted unit. Always simplify by finding GCD of numerator and denominator."},
-
-{t:"Radians & Degrees",q:"What are the radian equivalents of 30°, 45°, 60°, 90°, 120°, 135°, 150°, 180°, 270°, 360°?",
-a:"π/6, π/4, π/3, π/2, 2π/3, 3π/4, 5π/6, π, 3π/2, 2π",
-e:"Pattern for multiples of 30° (π/6): n×π/6. For 45° (π/4): n×π/4. For 60° (π/3): n×π/3. These are the angles you'll encounter most — memorize them."},
-
-{t:"Radians & Degrees",q:"What is the complement and supplement of an angle θ?",
-a:"Complement: π/2 − θ (or 90° − θ)\nSupplement: π − θ (or 180° − θ)",
-e:"Complement only exists if θ < π/2 (less than 90°). Supplement only exists if θ < π (less than 180°). If an angle is exactly 90° it has no complement (the complement would be 0°, which is debatable, but typically excluded)."},
-
-// UNIT CIRCLE & TRIG FUNCTIONS
-{t:"Unit Circle",q:"State sin, cos, tan for 0°, 30°, 45°, 60°, 90°.",
-a:"0°: 0,1,0 | 30°: ½,√3/2,√3/3 | 45°: √2/2,√2/2,1 | 60°: √3/2,½,√3 | 90°: 1,0,undef",
-e:"Memory for sin: 0, 1/2, √2/2, √3/2, 1 — numerators go 0,1,√2,√3,2 (divide all by 2). Cos is sin in reverse. Tan = sin/cos. These five angles in QI are the foundation for every other standard angle."},
-
-{t:"Unit Circle",q:"What is the ASTC rule and what does it tell you?",
-a:"All, Sin, Tan, Cos — which functions are positive in each quadrant (QI→QIV)",
-e:"<strong>QI:</strong> All positive. <strong>QII:</strong> Sin (and csc) positive. <strong>QIII:</strong> Tan (and cot) positive. <strong>QIV:</strong> Cos (and sec) positive.<br>Mnemonic: <em>All Students Take Calculus</em>. Apply by finding the reference angle first, then attaching the correct sign."},
+{t:"Unit Circle",q:"State the ASTC rule — which trig functions are positive in each quadrant?",
+a:"QI:   All positive\nQII:  Sin (and csc) positive\nQIII: Tan (and cot) positive\nQIV:  Cos (and sec) positive",
+e:"Mnemonic: All Students Take Calculus. The reciprocal of each function has the same sign as the original."},
 
 {t:"Unit Circle",q:"How do you find all six trig functions from a terminal point (x, y)?",
-a:"r = √(x²+y²), then: sin=y/r, cos=x/r, tan=y/x, csc=r/y, sec=r/x, cot=x/y",
-e:"The terminal point is on a circle of radius r, not necessarily the unit circle. x and y can be negative (that's how you get negative trig values). The signs of x and y tell you the quadrant; the formulas handle the signs automatically."},
+a:"r = √(x² + y²)\nsin = y/r,  cos = x/r,  tan = y/x\ncsc = r/y,  sec = r/x,  cot = x/y",
+e:"x and y can be negative — their signs determine the quadrant and give the correct positive/negative trig values automatically."},
 
-{t:"Unit Circle",q:"What is the reference angle for 7π/4, 5π/6, 4π/3, and 11π/6?",
-a:"7π/4: π/4 | 5π/6: π/6 | 4π/3: π/3 | 11π/6: π/6",
-e:"Reference angle = acute angle between the terminal side and the x-axis.<br>QI: ref = θ. QII: ref = π−θ. QIII: ref = θ−π. QIV: ref = 2π−θ.<br>Then use ASTC to assign the correct sign."},
+// ── INVERSE TRIG ──────────────────────────────────────────────────────
+{t:"Inverse Trig",q:"State the domain and range of arcsin, arccos, and arctan.",
+a:"arcsin: domain [−1,1],  range [−π/2, π/2]\narccos: domain [−1,1],  range [0, π]\narctan: domain (−∞,∞),  range (−π/2, π/2)",
+e:"The ranges come from restricting the original functions to make them one-to-one. arccos is never negative — it only outputs QI and QII angles."},
 
-// INVERSE TRIG
-{t:"Inverse Trig",q:"What are the domains and ranges of arcsin, arccos, arctan?",
-a:"arcsin: domain [−1,1], range [−π/2, π/2]\narccos: domain [−1,1], range [0, π]\narctan: domain (−∞,∞), range (−π/2, π/2)",
-e:"The range restrictions come from restricting the original function to make it one-to-one (so the inverse exists). arcsin and arctan output in QI and QIV (roughly). arccos outputs in QI and QII only — so arccos is never negative."},
+// ── VECTORS ───────────────────────────────────────────────────────────
+{t:"Vectors",q:"State the formula for the component form of a vector from magnitude and direction angle.",
+a:"v = ⟨|v| cos θ,  |v| sin θ⟩",
+e:"θ is measured counterclockwise from the positive x-axis. cos θ gives the x-component, sin θ gives the y-component."},
 
-{t:"Inverse Trig",q:"How do you simplify a composed expression like sin(arctan(x/4))?",
-a:"Let θ = arctan(x/4). Draw the right triangle with tan θ = x/4. Then read off sin θ from the triangle.",
-e:"Step 1: Set the inner inverse trig equal to θ and extract the ratio. Step 2: Identify opposite, adjacent, find hypotenuse with Pythagorean theorem. Step 3: Read off the outer trig function.<br>Example: tan θ = x/4 → opp=x, adj=4, hyp=√(x²+16). sin θ = x/√(x²+16)."},
+{t:"Vectors",q:"State the formula for the magnitude of a vector ⟨a, b⟩.",
+a:"|v| = √(a² + b²)",
+e:"The magnitude is the length of the vector — the distance from the origin to the point (a, b). It's always non-negative."},
 
-{t:"Inverse Trig",q:"Why is arccos(−1/2) = 2π/3 and not 4π/3?",
-a:"arccos only returns values in [0, π]. 4π/3 is outside that range.",
-e:"cos is negative in both QII and QIII, so cos = −1/2 at 2π/3 (120°) AND 4π/3 (240°). But arccos is restricted to [0,π], which only includes QI and QII. So the answer must be 2π/3. Always check which quadrant is allowed by the range."},
+{t:"Vectors",q:"State the formula for a unit vector.",
+a:"û = v / |v|  =  ⟨a/|v|, b/|v|⟩",
+e:"A unit vector has magnitude exactly 1 and points in the same direction as v. Divide each component by the magnitude."},
 
-// VECTORS
-{t:"Vectors",q:"How do you find the component form of a vector from magnitude and direction angle?",
-a:"⟨|v|cos θ, |v|sin θ⟩",
-e:"The direction angle θ is measured counterclockwise from the positive x-axis. cos θ gives the x-component (horizontal), sin θ gives the y-component (vertical). If θ is in QII or QIII, cos θ will be negative, giving a negative x-component automatically."},
-
-{t:"Vectors",q:"How do you find the direction angle of a vector ⟨a, b⟩?",
-a:"θ = arctan(b/a), then adjust for the correct quadrant.",
-e:"arctan only returns values in (−π/2, π/2) — i.e., QI or QIV. If the vector is in QII or QIII (a < 0), add 180° to the arctan result. If in QIV (b < 0, a > 0), the arctan gives a negative angle; add 360° if you want a positive direction angle."},
-
-{t:"Vectors",q:"What does the dot product u·v = 0 tell you about the two vectors?",
-a:"The vectors are orthogonal (perpendicular, 90° angle between them).",
-e:"cos θ = (u·v)/(|u||v|). If u·v = 0, then cos θ = 0, so θ = 90°. This is the fastest way to check perpendicularity — no need to compute the full angle."},
-
-{t:"Vectors",q:"How do you check if two vectors ⟨a, b⟩ and ⟨c, d⟩ are parallel?",
-a:"Check if a/c = b/d (corresponding component ratios are equal).",
-e:"Parallel means one is a scalar multiple of the other: ⟨c,d⟩ = k⟨a,b⟩ for some k. This means c=ka and d=kb, so c/a = d/b = k. If the ratios aren't equal (and the dot product isn't zero), they're neither parallel nor orthogonal."},
+{t:"Vectors",q:"State the dot product formula.",
+a:"u · v = u₁v₁ + u₂v₂",
+e:"The dot product gives a scalar (number), not a vector. Multiply corresponding components and add."},
 
 {t:"Vectors",q:"State the formula for the angle between two vectors.",
-a:"cos θ = (u·v) / (|u||v|); then θ = arccos of that result",
-e:"The dot product encodes the cosine of the angle. Compute u·v, divide by the product of the magnitudes, then take arccos. Result is always in [0°, 180°] since arccos returns [0, π]."},
+a:"cos θ = (u · v) / (|u| |v|)\nθ = arccos of that result",
+e:"The result is always in [0°, 180°] since arccos returns [0, π]. If u·v = 0, the angle is 90° (orthogonal)."},
 
-{t:"Vectors",q:"How do you find a unit vector in the direction of v?",
-a:"û = v / |v|  — divide each component by the magnitude",
-e:"The unit vector points the same direction as v but has magnitude exactly 1. If v = ⟨3,4⟩, |v|=5, so û = ⟨3/5, 4/5⟩. Check: √(9/25+16/25)=√(25/25)=1 ✓. To get a vector of magnitude k in the direction of v: k·û."},
+{t:"Vectors",q:"State the formula for the direction angle of a vector ⟨a, b⟩.",
+a:"θ = arctan(b/a), then adjust for quadrant",
+e:"arctan only returns QI or QIV angles. If the vector is in QII or QIII (a < 0), add 180° to the result."},
 
-// LIMITS
-{t:"Limits",q:"What are the three main strategies for evaluating limits?",
-a:"1. Direct substitution\n2. Factor & cancel (for 0/0 with rationals)\n3. Rationalize the numerator (for 0/0 with radicals)",
-e:"Always try direct substitution first. If you get 0/0, that's indeterminate — factor or rationalize. If you get a/0 (a≠0), the limit is ±∞ (DNE). If you get 0/a, the limit is 0."},
+{t:"Vectors",q:"How do you test if two vectors are orthogonal? Parallel?",
+a:"Orthogonal: u · v = 0\nParallel: v₁/u₁ = v₂/u₂",
+e:"Orthogonal means perpendicular (90° angle). Parallel means one is a scalar multiple of the other — the ratios of corresponding components are all equal."},
 
-{t:"Limits",q:"How do you evaluate lim(x→∞) for a rational function?",
-a:"Compare degrees: same→coefficient ratio; num<denom→0; num>denom→±∞",
-e:"Divide all terms by the highest power of x in the denominator. Terms with x in the denominator vanish as x→∞. Only the leading terms survive. This gives the ratio of leading coefficients when degrees match."},
+// ── LIMITS ────────────────────────────────────────────────────────────
+{t:"Limits",q:"What are the three strategies for evaluating limits?",
+a:"1. Direct substitution — always try first\n2. Factor & cancel — for 0/0 with rational expressions\n3. Rationalize the numerator — for 0/0 with square roots",
+e:"If direct sub gives 0/0, that's indeterminate — don't stop there, factor or rationalize. If you get a/0 (a≠0), the limit is ±∞ (DNE)."},
+
+{t:"Limits",q:"State the three rules for limits at infinity of a rational function.",
+a:"Same degree → ratio of leading coefficients\nNumerator degree < denominator → limit = 0\nNumerator degree > denominator → ±∞ (DNE)",
+e:"Divide all terms by the highest power of x in the denominator. Terms with x in the denominator vanish, leaving only the leading terms."},
 
 {t:"Limits",q:"State the two fundamental trig limits.",
-a:"lim(x→0) sin(x)/x = 1\nlim(x→0) (1−cos x)/x = 0",
-e:"These can't be computed by direct substitution (both give 0/0). They're proven by the squeeze theorem. The first is the most important — it underlies all trig derivatives. For lim sin(kx)/x: rewrite as k·[sin(kx)/(kx)] → k·1 = k."},
+a:"lim(x→0) sin(x)/x = 1\nlim(x→0) (1 − cos x)/x = 0",
+e:"Both give 0/0 by direct substitution — they're proven by the squeeze theorem. For lim sin(kx)/x: rewrite as k · [sin(kx)/(kx)] → k · 1 = k."},
 
-{t:"Limits",q:"What does it mean for a limit to not exist (DNE)?",
-a:"Left and right limits are unequal, or both sides go to ±∞",
-e:"Cases where limit DNE:<br>1. Left limit ≠ right limit (e.g., |x|/x at x=0: left=−1, right=+1).<br>2. The function oscillates with no settled value (e.g., sin(1/x) at x=0).<br>3. The function diverges to ±∞ (not a finite value, though we write lim=∞ to describe behavior)."},
-
-{t:"Limits",q:"How do you rationalize the numerator to find lim(x→a) of (√f(x) − c)/(x−a)?",
-a:"Multiply top and bottom by (√f(x) + c). The numerator becomes f(x) − c².",
-e:"Example: (√(x+7)−3)/(x−2). Multiply by (√(x+7)+3)/(√(x+7)+3). Numerator: (x+7)−9=x−2. Denominator: (x−2)(√(x+7)+3). Cancel (x−2). Evaluate at x=2: 1/(√9+3)=1/6."},
+{t:"Limits",q:"When does a two-sided limit exist?",
+a:"When the left-hand limit and right-hand limit are both equal and finite.",
+e:"If lim(x→a⁻) f(x) ≠ lim(x→a⁺) f(x), the limit DNE. If both sides go to ±∞, the limit also DNE (∞ is not a finite value, though we write lim = ∞ to describe the behavior)."},
 
 ];
-
 const FTOPICS=["All",...[...new Set(FCARDS.map(c=>c.t))]];
 let fActiveTopic="All", fDeck=[], fIdx=0, fFlipped=false;
 let fSeen=new Set(), fGot=new Set(), fLearn=new Set();
