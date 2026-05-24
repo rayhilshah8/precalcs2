@@ -67,16 +67,247 @@
   .stat-l { font-size:11px; color:var(--text2); margin-top:2px; }
   .icon { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
   .count-badge { font-size:11px; color:var(--text3); margin-left:4px; }
+
+  /* ── REFERENCE TAB ── */
+  .mode-row { display:flex; gap:8px; margin-bottom:1.25rem; }
+  .mode-btn { font-size:13px; padding:6px 16px; border-radius:var(--radius-sm); border:1px solid var(--border2); background:var(--bg); color:var(--text2); cursor:pointer; font-family:inherit; transition:all .15s; }
+  .mode-btn:hover { color:var(--text); }
+  .mode-btn.on { background:var(--text); color:var(--bg); border-color:var(--text); }
+
+  #refPanel { display:none; }
+  #refPanel h2 { font-size:16px; font-weight:600; color:var(--text); margin:1.5rem 0 .5rem; padding-bottom:6px; border-bottom:1px solid var(--border); }
+  #refPanel h2:first-child { margin-top:0; }
+  #refPanel h3 { font-size:13px; font-weight:600; color:var(--text); margin:.9rem 0 .25rem; }
+  #refPanel p { font-size:13px; color:var(--text2); line-height:1.75; margin-bottom:.35rem; }
+  #refPanel .formula { font-size:13px; color:var(--text); line-height:1.9; margin:.1rem 0; }
+  #refPanel .formula span { color:var(--text2); }
+  #refPanel .note { font-size:12px; color:var(--text3); font-style:italic; margin:.25rem 0 .5rem; }
+  #refPanel table { width:100%; border-collapse:collapse; font-size:13px; margin:.5rem 0 .75rem; }
+  #refPanel th { text-align:left; color:var(--text3); font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:.05em; padding:5px 8px; border-bottom:1px solid var(--border); }
+  #refPanel td { padding:5px 8px; color:var(--text2); border-bottom:1px solid var(--border); line-height:1.6; }
+  #refPanel td:first-child { color:var(--text); font-weight:500; white-space:nowrap; }
+  #refPanel .ref-card { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:1.1rem 1.25rem; margin-bottom:.75rem; }
+  #refPanel .ref-card h2 { border:none; padding:0; margin:0 0 .6rem; font-size:14px; }
+  #refPanel .pill { display:inline-block; font-size:11px; background:var(--bg2); border:1px solid var(--border); border-radius:4px; padding:1px 7px; margin:.15rem .15rem .15rem 0; color:var(--text2); }
 </style>
 </head>
 <body>
 <div class="page">
   <div class="hdr">
     <h1>Precalc Semester 2 — Flashcards</h1>
-    <p>All-original problems, same question types as the practice test. Click a card to flip it.</p>
+    <p>All-original problems, same question types as your review sheet.</p>
   </div>
+
+  <div class="mode-row">
+    <button class="mode-btn on" id="modeFlash" onclick="setMode('flash')">Flashcards</button>
+    <button class="mode-btn" id="modeRef" onclick="setMode('ref')">Formula Reference</button>
+    <button class="mode-btn" id="modeFormula" onclick="setMode('formula')">Formula Cards</button>
+  </div>
+
+  <!-- ═══ REFERENCE PANEL ═══ -->
+  <div id="refPanel">
+
+    <div class="ref-card">
+      <h2>Trig Graphing — y = A·trig(Bx − C) + D</h2>
+      <div class="formula">Amplitude = |A| <span>(negative A flips the graph)</span></div>
+      <div class="formula">Period = 2π/|B| <span>for sin, cos, sec, csc</span></div>
+      <div class="formula">Period = π/|B| <span>for tan, cot</span></div>
+      <div class="formula">Phase shift = C/B <span>(factor out B first to read it off)</span></div>
+      <div class="formula">Vertical shift = D <span>(midline at y = D)</span></div>
+      <div class="formula">Range = [D − |A|, D + |A|] <span>for sin and cos</span></div>
+      <h3>Asymptotes</h3>
+      <div class="formula">tan: Bx − C = π/2 + nπ</div>
+      <div class="formula">cot: Bx − C = nπ</div>
+      <div class="formula">sec/csc: wherever cos/sin = 0 (same as their base function)</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Pythagorean Identities</h2>
+      <div class="formula">sin²x + cos²x = 1</div>
+      <div class="formula">tan²x + 1 = sec²x</div>
+      <div class="formula">1 + cot²x = csc²x</div>
+      <h3>Rearrangements (use these for substitution)</h3>
+      <div class="formula">sin²x = 1 − cos²x</div>
+      <div class="formula">cos²x = 1 − sin²x</div>
+      <div class="formula">tan²x = sec²x − 1</div>
+      <div class="formula">cot²x = csc²x − 1</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Reciprocal &amp; Quotient Identities</h2>
+      <div class="formula">csc x = 1/sin x &nbsp;&nbsp; sec x = 1/cos x &nbsp;&nbsp; cot x = 1/tan x</div>
+      <div class="formula">tan x = sin x / cos x</div>
+      <div class="formula">cot x = cos x / sin x</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Even / Odd Identities</h2>
+      <h3>Odd (negate the output when you negate the input)</h3>
+      <div class="formula">sin(−x) = −sin x &nbsp;&nbsp; tan(−x) = −tan x &nbsp;&nbsp; csc(−x) = −csc x &nbsp;&nbsp; cot(−x) = −cot x</div>
+      <h3>Even (output unchanged)</h3>
+      <div class="formula">cos(−x) = cos x &nbsp;&nbsp; sec(−x) = sec x</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Cofunction Identities</h2>
+      <div class="formula">sin(π/2 − x) = cos x &nbsp;&nbsp;&nbsp; cos(π/2 − x) = sin x</div>
+      <div class="formula">tan(π/2 − x) = cot x &nbsp;&nbsp;&nbsp; cot(π/2 − x) = tan x</div>
+      <div class="formula">sec(π/2 − x) = csc x &nbsp;&nbsp;&nbsp; csc(π/2 − x) = sec x</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Sum &amp; Difference Formulas</h2>
+      <div class="formula">sin(A ± B) = sin A cos B ± cos A sin B</div>
+      <div class="formula">cos(A ± B) = cos A cos B ∓ sin A sin B <span>(signs flip!)</span></div>
+      <div class="formula">tan(A ± B) = (tan A ± tan B) / (1 ∓ tan A tan B)</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Double Angle Formulas</h2>
+      <div class="formula">sin 2x = 2 sin x cos x</div>
+      <div class="formula">tan 2x = 2 tan x / (1 − tan²x)</div>
+      <h3>cos 2x — three versions, all equivalent</h3>
+      <div class="formula">cos 2x = cos²x − sin²x</div>
+      <div class="formula">cos 2x = 1 − 2 sin²x <span>(use when you want to eliminate cos)</span></div>
+      <div class="formula">cos 2x = 2 cos²x − 1 <span>(use when you want to eliminate sin)</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Power-Reducing Identities</h2>
+      <div class="formula">sin²x = (1 − cos 2x) / 2</div>
+      <div class="formula">cos²x = (1 + cos 2x) / 2</div>
+      <div class="formula">tan²x = (1 − cos 2x) / (1 + cos 2x)</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Half-Angle Formulas</h2>
+      <div class="formula">sin(θ/2) = ±√((1 − cos θ) / 2)</div>
+      <div class="formula">cos(θ/2) = ±√((1 + cos θ) / 2)</div>
+      <div class="formula">tan(θ/2) = ±√((1 − cos θ) / (1 + cos θ))</div>
+      <div class="formula">tan(θ/2) = sin θ / (1 + cos θ) <span>(no ± needed)</span></div>
+      <div class="formula">tan(θ/2) = (1 − cos θ) / sin θ <span>(no ± needed)</span></div>
+      <div class="note">Sign for sin/cos/first tan form: determined by which quadrant θ/2 falls in.</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Conics — Parabola</h2>
+      <div class="formula">Vertical (up/down): (x − h)² = 4p(y − k)</div>
+      <div class="formula">Horizontal (left/right): (y − k)² = 4p(x − h)</div>
+      <h3>Key parts</h3>
+      <div class="formula">Vertex: (h, k)</div>
+      <div class="formula">p = distance from vertex to focus = distance from vertex to directrix</div>
+      <div class="formula">Focus: (h, k+p) vertical &nbsp;|&nbsp; (h+p, k) horizontal</div>
+      <div class="formula">Directrix: y = k−p vertical &nbsp;|&nbsp; x = h−p horizontal</div>
+      <div class="formula">p > 0 → opens up/right &nbsp;&nbsp; p < 0 → opens down/left</div>
+      <div class="formula">Latus rectum length = |4p|</div>
+      <div class="note">To convert general form: complete the square on whichever variable is squared.</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Conics — Ellipse</h2>
+      <div class="formula">(x−h)²/a² + (y−k)²/b² = 1</div>
+      <h3>Key parts</h3>
+      <div class="formula">Center: (h, k)</div>
+      <div class="formula">a = semi-major axis (always under the <em>larger</em> denominator)</div>
+      <div class="formula">b = semi-minor axis</div>
+      <div class="formula"><strong>c² = a² − b²</strong> &nbsp;&nbsp; (c &lt; a always)</div>
+      <div class="formula">Foci: c units from center along the major axis</div>
+      <div class="formula">a² under x → horizontal major axis; a² under y → vertical</div>
+      <div class="formula">Vertices (major): (h±a, k) or (h, k±a)</div>
+      <div class="formula">Co-vertices (minor): the other direction, ±b from center</div>
+      <div class="formula">Eccentricity: e = c/a, where 0 &lt; e &lt; 1</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Conics — Hyperbola</h2>
+      <div class="formula">Horizontal: (x−h)²/a² − (y−k)²/b² = 1 <span>(opens left/right)</span></div>
+      <div class="formula">Vertical: (y−k)²/a² − (x−h)²/b² = 1 <span>(opens up/down)</span></div>
+      <h3>Key parts</h3>
+      <div class="formula">Center: (h, k)</div>
+      <div class="formula"><strong>c² = a² + b²</strong> &nbsp;&nbsp; (c &gt; a always)</div>
+      <div class="formula">Vertices: a units from center along the transverse axis</div>
+      <div class="formula">Foci: c units from center along the transverse axis</div>
+      <div class="formula">Asymptotes (horizontal): y − k = ±(b/a)(x − h)</div>
+      <div class="formula">Asymptotes (vertical): y − k = ±(a/b)(x − h)</div>
+      <div class="formula">Eccentricity: e = c/a, where e &gt; 1</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Radian ↔ Degree Conversion</h2>
+      <div class="formula">Degrees → Radians: multiply by π/180</div>
+      <div class="formula">Radians → Degrees: multiply by 180/π</div>
+      <div class="formula">Complement: two angles summing to 90° (π/2) — only exists if angle &lt; 90°</div>
+      <div class="formula">Supplement: two angles summing to 180° (π) — only exists if angle &lt; 180°</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Unit Circle — Key Values</h2>
+      <table>
+        <tr><th>θ</th><th>Degrees</th><th>sin θ</th><th>cos θ</th><th>tan θ</th></tr>
+        <tr><td>0</td><td>0°</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>π/6</td><td>30°</td><td>1/2</td><td>√3/2</td><td>√3/3</td></tr>
+        <tr><td>π/4</td><td>45°</td><td>√2/2</td><td>√2/2</td><td>1</td></tr>
+        <tr><td>π/3</td><td>60°</td><td>√3/2</td><td>1/2</td><td>√3</td></tr>
+        <tr><td>π/2</td><td>90°</td><td>1</td><td>0</td><td>undef</td></tr>
+        <tr><td>π</td><td>180°</td><td>0</td><td>−1</td><td>0</td></tr>
+        <tr><td>3π/2</td><td>270°</td><td>−1</td><td>0</td><td>undef</td></tr>
+        <tr><td>2π</td><td>360°</td><td>0</td><td>1</td><td>0</td></tr>
+      </table>
+      <h3>Quadrant signs — ASTC</h3>
+      <div class="formula">QI: All positive</div>
+      <div class="formula">QII: Sin (and csc) positive</div>
+      <div class="formula">QIII: Tan (and cot) positive</div>
+      <div class="formula">QIV: Cos (and sec) positive</div>
+      <h3>Terminal points (x, y) on unit circle</h3>
+      <div class="formula">r = √(x²+y²) &nbsp;&nbsp; sin = y/r &nbsp;&nbsp; cos = x/r &nbsp;&nbsp; tan = y/x</div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Inverse Trig — Domains &amp; Ranges</h2>
+      <table>
+        <tr><th>Function</th><th>Input domain</th><th>Output range</th></tr>
+        <tr><td>arcsin</td><td>[−1, 1]</td><td>[−π/2, π/2]</td></tr>
+        <tr><td>arccos</td><td>[−1, 1]</td><td>[0, π]</td></tr>
+        <tr><td>arctan</td><td>(−∞, ∞)</td><td>(−π/2, π/2)</td></tr>
+      </table>
+      <h3>Composition trick</h3>
+      <p>For sin(arctan(x/3)): let θ = arctan(x/3), so tan θ = x/3. Draw the right triangle with opposite = x, adjacent = 3, hypotenuse = √(x²+9). Then read off sin θ = x/√(x²+9) from the triangle.</p>
+    </div>
+
+    <div class="ref-card">
+      <h2>Vectors</h2>
+      <div class="formula">Component form from magnitude &amp; angle: ⟨|v|cos θ, |v|sin θ⟩</div>
+      <div class="formula">Magnitude: |v| = √(v₁² + v₂²)</div>
+      <div class="formula">Unit vector: û = v / |v|</div>
+      <div class="formula">Dot product: u·v = u₁v₁ + u₂v₂ &nbsp;&nbsp;<span>(result is a scalar)</span></div>
+      <div class="formula">Angle between vectors: cos θ = (u·v) / (|u||v|)</div>
+      <div class="formula">Direction angle: θ = arctan(y/x), adjusted for quadrant</div>
+      <div class="formula">Orthogonal: u·v = 0</div>
+      <div class="formula">Parallel: v₁/u₁ = v₂/u₂ &nbsp;&nbsp;<span>(ratios of corresponding components are equal)</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h2>Limits</h2>
+      <h3>Strategies (try in this order)</h3>
+      <div class="formula">1. Direct substitution — always try first</div>
+      <div class="formula">2. Factor &amp; cancel — for 0/0 with rational expressions</div>
+      <div class="formula">3. Rationalize the numerator — for 0/0 with square roots (multiply by conjugate)</div>
+      <h3>Limits at infinity</h3>
+      <div class="formula">Same degree → ratio of leading coefficients</div>
+      <div class="formula">Numerator degree &lt; denominator → limit = 0</div>
+      <div class="formula">Numerator degree &gt; denominator → limit = ±∞ (DNE)</div>
+      <h3>Fundamental trig limits</h3>
+      <div class="formula">lim(x→0) sin(x)/x = 1</div>
+      <div class="formula">lim(x→0) (1 − cos x)/x = 0</div>
+      <h3>One-sided limits</h3>
+      <div class="formula">Two-sided limit exists only if left and right limits are equal and finite</div>
+    </div>
+
+  </div>
+  <!-- end refPanel -->
+
   <div class="tabs" id="tabs"></div>
-  <div class="tools">
+  <div class="tools" id="toolsRow">
     <button class="sm-btn" onclick="shuffleDeck()">
       <svg class="icon" viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 20.2 3.8M21 16v5h-5M15 15l5.1 5.1M4 4l5 5"/></svg>Shuffle
     </button>
@@ -84,11 +315,11 @@
       <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Reset
     </button>
   </div>
-  <div class="bar-row">
+  <div class="bar-row" id="barRow">
     <div class="bar"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
     <div class="bar-txt" id="barTxt">0 / 0</div>
   </div>
-  <div class="scene">
+  <div class="scene" id="scene">
     <div class="card-inner" id="cardInner" onclick="flipCard()">
       <div class="face front">
         <div class="card-tag" id="frontTag"></div>
@@ -114,11 +345,58 @@
     <button class="btn" onclick="prev()"><svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Prev</button>
     <button class="btn pri" onclick="next()">Next<svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
   </div>
-  <div class="stats">
+  <div class="stats" id="statsRow">
     <div class="stat"><div class="stat-n" id="statGot">0</div><div class="stat-l">Got it</div></div>
     <div class="stat"><div class="stat-n" id="statLearn">0</div><div class="stat-l">Learning</div></div>
     <div class="stat"><div class="stat-n" id="statSeen">0</div><div class="stat-l">Seen</div></div>
+  </div>  <!-- ═══ FORMULA CARD SCENE ═══ -->
+  <div id="fScene" style="display:none">
+    <div class="tabs" id="ftabs"></div>
+    <div class="tools" id="ftoolsRow">
+      <button class="sm-btn" onclick="fShuffleDeck()">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 20.2 3.8M21 16v5h-5M15 15l5.1 5.1M4 4l5 5"/></svg>Shuffle
+      </button>
+      <button class="sm-btn" onclick="fResetProgress()">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Reset
+      </button>
+    </div>
+    <div class="bar-row" id="fBarRow">
+      <div class="bar"><div class="bar-fill" id="fBarFill" style="width:0%"></div></div>
+      <div class="bar-txt" id="fBarTxt">0 / 0</div>
+    </div>
+    <div class="scene">
+      <div class="card-inner" id="fCardInner" onclick="fFlipCard()">
+        <div class="face front">
+          <div class="card-tag" id="fFrontTag"></div>
+          <div class="card-q" id="fFrontQ"></div>
+          <div class="card-hint">Click to reveal ↓</div>
+        </div>
+        <div class="face back">
+          <div class="card-tag" id="fBackTag"></div>
+          <div class="card-ans" id="fBackAns"></div>
+          <div class="card-expl" id="fBackExpl"></div>
+        </div>
+      </div>
+    </div>
+    <div class="mark-row" id="fMarkRow" style="display:none">
+      <button class="mark-btn btn-nope" onclick="fMark(false)">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Still learning
+      </button>
+      <button class="mark-btn btn-got" onclick="fMark(true)">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Got it
+      </button>
+    </div>
+    <div class="nav">
+      <button class="btn" onclick="fPrev()"><svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Prev</button>
+      <button class="btn pri" onclick="fNext()">Next<svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+    </div>
+    <div class="stats" id="fStatsRow">
+      <div class="stat"><div class="stat-n" id="fStatGot">0</div><div class="stat-l">Got it</div></div>
+      <div class="stat"><div class="stat-n" id="fStatLearn">0</div><div class="stat-l">Learning</div></div>
+      <div class="stat"><div class="stat-n" id="fStatSeen">0</div><div class="stat-l">Seen</div></div>
+    </div>
   </div>
+
 </div>
 <script>
 const CARDS=[
@@ -385,6 +663,348 @@ function updateStats(){
   document.getElementById("statLearn").textContent=learnSet.size;
   document.getElementById("statSeen").textContent=seen.size;
 }
+function setMode(m){
+  const isFlash=m==='flash', isRef=m==='ref', isFormula=m==='formula';
+  document.getElementById('modeFlash').classList.toggle('on',isFlash);
+  document.getElementById('modeRef').classList.toggle('on',isRef);
+  document.getElementById('modeFormula').classList.toggle('on',isFormula);
+  document.getElementById('refPanel').style.display=isRef?'block':'none';
+  document.getElementById('fScene').style.display=isFormula?'block':'none';
+  // flashcard elements
+  ['tabs','toolsRow','barRow','scene','statsRow'].forEach(id=>{
+    document.getElementById(id).style.display=isFlash?'':'none';
+  });
+  document.getElementById('markRow').style.display='none';
+  document.getElementById('navRow').style.display=isFlash?'flex':'none';
+}
+
+// ── FORMULA CARDS ──────────────────────────────────────────────────
+const FCARDS=[
+
+// TRIG GRAPHING
+{t:"Graphing",q:"What does each letter control in y = A·trig(Bx − C) + D?",
+a:"A = amplitude/flip, B → period, C/B = phase shift, D = vertical shift",
+e:"<strong>A:</strong> |A| is amplitude; negative A reflects over the midline.<br><strong>B:</strong> Period = 2π/|B| for sin/cos, π/|B| for tan/cot.<br><strong>C/B:</strong> Phase shift — factor out B first, then read it off. Positive = right.<br><strong>D:</strong> Midline at y = D. Range for sin/cos: [D−|A|, D+|A|]."},
+
+{t:"Graphing",q:"What is the period formula for sin, cos, sec, csc vs. tan, cot?",
+a:"sin/cos/sec/csc: Period = 2π/|B|\ntan/cot: Period = π/|B|",
+e:"Tangent and cotangent complete a full cycle in half the distance that sine and cosine do. Their natural period is π, not 2π. Multiplying x by B compresses or stretches accordingly."},
+
+{t:"Graphing",q:"Where are the vertical asymptotes of y = tan(Bx − C)?",
+a:"Where Bx − C = π/2 + nπ (for any integer n)",
+e:"Tangent = sin/cos, so it's undefined wherever cos = 0, which happens at π/2 + nπ. Set the argument equal to those values and solve for x to find the asymptote locations."},
+
+{t:"Graphing",q:"Where are the vertical asymptotes of y = cot(Bx − C)?",
+a:"Where Bx − C = nπ (for any integer n)",
+e:"Cotangent = cos/sin, undefined where sin = 0, which is at every multiple of π. Set the argument equal to nπ and solve for x."},
+
+{t:"Graphing",q:"How do you find the phase shift when the equation is y = sin(3x − π)?",
+a:"Factor out 3 first: sin(3(x − π/3)). Phase shift = π/3 to the right.",
+e:"<strong>Always factor out B before reading the shift.</strong> Writing 3x − π as 3(x − π/3) reveals that C/B = π/3. Positive result = shift right. If it were 3(x + π/3) the shift would be π/3 left."},
+
+{t:"Graphing",q:"What is the range of y = A sin(Bx − C) + D?",
+a:"[D − |A|, D + |A|]",
+e:"Sin oscillates between −1 and +1. Multiplying by A stretches it to [−|A|, |A|]. Adding D shifts that interval up or down. The negative on A flips the graph but doesn't change the range since we use |A|."},
+
+// PYTHAGOREAN IDENTITIES
+{t:"Pythagorean IDs",q:"State all three Pythagorean identities.",
+a:"sin²x + cos²x = 1\ntan²x + 1 = sec²x\n1 + cot²x = csc²x",
+e:"All three come from dividing sin²x + cos²x = 1 by different things:<br>÷ cos²x → tan²x + 1 = sec²x<br>÷ sin²x → 1 + cot²x = csc²x<br>So you really only need to memorize one and derive the others."},
+
+{t:"Pythagorean IDs",q:"Express sin²x in terms of cos, and cos²x in terms of sin.",
+a:"sin²x = 1 − cos²x\ncos²x = 1 − sin²x",
+e:"Direct rearrangements of sin²x + cos²x = 1. Use these to swap between sin and cos when simplifying — particularly helpful when you have a squared term you want to eliminate."},
+
+{t:"Pythagorean IDs",q:"Express tan²x in terms of sec, and cot²x in terms of csc.",
+a:"tan²x = sec²x − 1\ncot²x = csc²x − 1",
+e:"Rearrangements of the other two Pythagorean identities. These come up in trig equations when you need to replace sec² or csc² with something involving tan or cot."},
+
+// RECIPROCAL & QUOTIENT
+{t:"Reciprocal & Quotient",q:"Write all six reciprocal and quotient identities.",
+a:"csc x = 1/sin x\nsec x = 1/cos x\ncot x = 1/tan x\ntan x = sin x/cos x\ncot x = cos x/sin x",
+e:"The reciprocal identities pair up: sin↔csc, cos↔sec, tan↔cot. The quotient identities show tan and cot as ratios of sin and cos. These are used constantly to rewrite expressions in a simpler form."},
+
+// EVEN / ODD
+{t:"Even & Odd",q:"Which trig functions are even, and which are odd?",
+a:"Even (cos, sec): f(−x) = f(x)\nOdd (sin, tan, csc, cot): f(−x) = −f(x)",
+e:"<strong>Even:</strong> cos(−x) = cos x, sec(−x) = sec x. The graph is symmetric about the y-axis.<br><strong>Odd:</strong> sin(−x) = −sin x, and same for tan, csc, cot. The graph has 180° rotational symmetry about the origin."},
+
+{t:"Even & Odd",q:"Simplify cos(−x)/sin(−x).",
+a:"−cot x",
+e:"cos(−x) = cos x (even). sin(−x) = −sin x (odd).<br>cos x / (−sin x) = −cos x/sin x = −cot x."},
+
+// COFUNCTION
+{t:"Cofunction IDs",q:"State all six cofunction identities.",
+a:"sin(π/2−x)=cos x, cos(π/2−x)=sin x\ntan(π/2−x)=cot x, cot(π/2−x)=tan x\nsec(π/2−x)=csc x, csc(π/2−x)=sec x",
+e:"Each trig function equals its co-function of the complementary angle. 'Co-' literally means complement. These come from the fact that in a right triangle, the two acute angles add to π/2, so sin of one = cos of the other."},
+
+{t:"Cofunction IDs",q:"What does cos(π/2 + x) simplify to? And sin(π/2 + x)?",
+a:"cos(π/2 + x) = −sin x\nsin(π/2 + x) = cos x",
+e:"Use sum formulas:<br>cos(π/2+x) = cos(π/2)cos x − sin(π/2)sin x = (0)cos x − (1)sin x = −sin x.<br>sin(π/2+x) = sin(π/2)cos x + cos(π/2)sin x = cos x. These are phase-shift relationships."},
+
+// SUM & DIFFERENCE
+{t:"Sum & Difference",q:"State the sum and difference formulas for sin.",
+a:"sin(A + B) = sin A cos B + cos A sin B\nsin(A − B) = sin A cos B − cos A sin B",
+e:"Memory trick: <strong>sin sum = same signs</strong> (+ on left → + in formula). The pattern is always sincos + cossin. Be careful — the two terms have different function orders."},
+
+{t:"Sum & Difference",q:"State the sum and difference formulas for cos.",
+a:"cos(A + B) = cos A cos B − sin A sin B\ncos(A − B) = cos A cos B + sin A sin B",
+e:"<strong>Signs flip for cos</strong> — this is the most common mistake. cos(A+B) has a minus, cos(A−B) has a plus. Memory: cos is the 'contrary' one. Pattern: coscos ∓ sinsin."},
+
+{t:"Sum & Difference",q:"State the sum and difference formulas for tan.",
+a:"tan(A ± B) = (tan A ± tan B) / (1 ∓ tan A tan B)",
+e:"The ∓ in the denominator means the sign is opposite to the ± in the numerator: sum → minus in denominator, difference → plus in denominator. Derived by writing tan = sin/cos and applying the sin/cos sum formulas."},
+
+{t:"Sum & Difference",q:"How do you find an exact value like sin(105°) using sum/difference formulas?",
+a:"Write 105° as a sum/difference of two special angles: 60° + 45°. Then apply sin(A+B).",
+e:"Special angles are 0°, 30°, 45°, 60°, 90° (and their multiples). Find a combination that reaches your target: 105 = 60+45, or 135−30, etc. Then plug into the formula and evaluate each piece using the unit circle."},
+
+{t:"Sum & Difference",q:"Simplify: sin(A+B) + sin(A−B)",
+a:"2 sin A cos B",
+e:"sin(A+B) = sinAcosB + cosAsinB.<br>sin(A−B) = sinAcosB − cosAsinB.<br>Add: the cosAsinB terms cancel, leaving 2sinAcosB. This is the reverse of a sum formula."},
+
+{t:"Sum & Difference",q:"Simplify: cos(A+B) + cos(A−B)",
+a:"2 cos A cos B",
+e:"cos(A+B) = cosAcosB − sinAsinB.<br>cos(A−B) = cosAcosB + sinAsinB.<br>Add: sinAsinB terms cancel, leaving 2cosAcosB."},
+
+// DOUBLE ANGLE
+{t:"Double Angle",q:"State the double angle formula for sin.",
+a:"sin 2x = 2 sin x cos x",
+e:"Derived from sin(A+B) with A=B=x: sin(x+x) = sinx cosx + cosx sinx = 2sinx cosx. This is the most-used double angle formula — also appears as the reverse of certain products."},
+
+{t:"Double Angle",q:"State all three versions of the double angle formula for cos 2x.",
+a:"cos 2x = cos²x − sin²x\ncos 2x = 1 − 2 sin²x\ncos 2x = 2 cos²x − 1",
+e:"All three come from cos(x+x) = cos²x − sin²x, then substituting sin²x = 1−cos²x or cos²x = 1−sin²x.<br>Use the version that matches what's already in your expression — whichever eliminates the function you don't want."},
+
+{t:"Double Angle",q:"State the double angle formula for tan.",
+a:"tan 2x = 2 tan x / (1 − tan²x)",
+e:"Derived from tan(A+B) with A=B=x: (tanx+tanx)/(1−tanx·tanx) = 2tanx/(1−tan²x). Less common than sin/cos versions but still tested."},
+
+{t:"Double Angle",q:"How do you use cos 2x = 1 − 2sin²x vs. cos 2x = 2cos²x − 1?",
+a:"Use 1−2sin²x to eliminate cos. Use 2cos²x−1 to eliminate sin.",
+e:"If your expression has cos²x and you want only sin, use cos²x = (1+cos2x)/2 (or rearrange). If it has sin²x and you want only cos, use sin²x = (1−cos2x)/2. Choose whichever version collapses the expression into one trig function."},
+
+// POWER REDUCING
+{t:"Power Reducing",q:"State the three power-reducing identities.",
+a:"sin²x = (1 − cos 2x) / 2\ncos²x = (1 + cos 2x) / 2\ntan²x = (1 − cos 2x) / (1 + cos 2x)",
+e:"These come directly from the cos 2x double-angle formulas rearranged. They reduce squared trig functions to first-power expressions — essential in calculus for integrating sin² and cos²."},
+
+{t:"Power Reducing",q:"Use a power-reducing identity to rewrite sin²x cos²x.",
+a:"(1/4) sin²2x, or equivalently (1 − cos 4x)/8",
+e:"sin²x·cos²x = [(1−cos2x)/2]·[(1+cos2x)/2] = (1−cos²2x)/4 = sin²2x/4.<br>Then power-reduce sin²2x = (1−cos4x)/2: result = (1−cos4x)/8."},
+
+// HALF ANGLE
+{t:"Half Angle",q:"State the half-angle formulas for sin and cos.",
+a:"sin(θ/2) = ±√((1 − cos θ)/2)\ncos(θ/2) = ±√((1 + cos θ)/2)",
+e:"The sign depends on which quadrant θ/2 falls in — determine that first, then choose + or −.<br>Memory: sin gets (1−cosθ) under the radical, cos gets (1+cosθ). The 'minus for sin' pairing makes sense because sin is 0 at θ=0 and cos is 1."},
+
+{t:"Half Angle",q:"State all three versions of the half-angle formula for tan.",
+a:"tan(θ/2) = ±√((1−cosθ)/(1+cosθ))\ntan(θ/2) = sinθ / (1+cosθ)\ntan(θ/2) = (1−cosθ) / sinθ",
+e:"The two non-square-root versions have no ± — the sign is built in automatically. They're derived by multiplying numerator and denominator of the ± form by (1+cosθ) or (1−cosθ) and using Pythagorean identities. Use these when you want to avoid figuring out the quadrant sign."},
+
+{t:"Half Angle",q:"How do you determine the sign in sin(θ/2) = ±√((1−cosθ)/2)?",
+a:"Find which quadrant θ/2 is in, then use the ASTC rule for sin.",
+e:"Example: if θ = 300°, then θ/2 = 150°, which is in QII. Sin is positive in QII, so take +. The formula gives a positive square root. Always check the quadrant of the half angle, not the original angle."},
+
+// CONICS — PARABOLA
+{t:"Parabola",q:"What is the standard form of a vertical parabola, and what does each part mean?",
+a:"(x − h)² = 4p(y − k)\nVertex (h,k), p = distance to focus and directrix",
+e:"p > 0 opens up, p < 0 opens down. Focus is at (h, k+p) — inside the curve. Directrix is y = k−p — outside the curve, same distance from vertex as the focus. Every point on the parabola is equidistant from focus and directrix."},
+
+{t:"Parabola",q:"What is the standard form of a horizontal parabola?",
+a:"(y − k)² = 4p(x − h)\nVertex (h,k), opens right if p>0, left if p<0",
+e:"The y is squared (not x), so it opens sideways. Focus: (h+p, k). Directrix: x = h−p. To remember which way it opens: the focus is always inside the cup, and the parabola opens toward the focus."},
+
+{t:"Parabola",q:"How do you convert a general-form parabola to standard form?",
+a:"Complete the square on the squared variable. Balance the equation.",
+e:"Example: x²+4x−8y+12=0. Group x terms: (x²+4x)=8y−12. Complete square: (x+2)²−4=8y−12 → (x+2)²=8y−8=8(y−1). Vertex (−2,1), 4p=8, p=2, opens up."},
+
+{t:"Parabola",q:"A parabola has vertex (h, k) and focus (h, k+p). What is its directrix?",
+a:"y = k − p",
+e:"The directrix is always on the opposite side of the vertex from the focus, at the same distance. If p=3, focus is 3 above vertex, directrix is 3 below vertex. Directrix for horizontal parabola: x = h−p."},
+
+// CONICS — ELLIPSE
+{t:"Ellipse",q:"State the standard form of an ellipse and identify a, b, c.",
+a:"(x−h)²/a² + (y−k)²/b² = 1\na = semi-major, b = semi-minor, c² = a² − b²",
+e:"a² is always the <strong>larger</strong> denominator. If a² is under x, the major axis is horizontal. If under y, it's vertical. Foci are c units from center along the major axis. Always: a > b > 0, and c < a."},
+
+{t:"Ellipse",q:"For an ellipse, how do you find c and what does it represent?",
+a:"c² = a² − b²; c = distance from center to each focus",
+e:"Think of it as a² = b² + c² rearranged. The foci are always on the major axis. For horizontal ellipses: foci at (h±c, k). For vertical: foci at (h, k±c). Eccentricity e = c/a, always between 0 and 1."},
+
+{t:"Ellipse",q:"What are the vertices and co-vertices of (x−h)²/25 + (y−k)²/9 = 1?",
+a:"Vertices: (h±5, k) — horizontal major axis\nCo-vertices: (h, k±3)",
+e:"a²=25→a=5 (larger denominator, under x → horizontal). b²=9→b=3. Vertices are the endpoints of the major axis (±a from center). Co-vertices are endpoints of the minor axis (±b from center, perpendicular direction)."},
+
+{t:"Ellipse",q:"How do you put 4x²+9y²−16x+18y−11=0 into graphable form?",
+a:"Complete the square on both x and y, then divide to get = 1.",
+e:"Group: 4(x²−4x)+9(y²+2y)=11. Complete: 4(x−2)²−16+9(y+1)²−9=11 → 4(x−2)²+9(y+1)²=36. Divide by 36: (x−2)²/9+(y+1)²/4=1. Center (2,−1), a=3 (horiz), b=2."},
+
+// CONICS — HYPERBOLA
+{t:"Hyperbola",q:"State both standard forms of a hyperbola and how to tell them apart.",
+a:"Horizontal: (x−h)²/a² − (y−k)²/b² = 1\nVertical: (y−k)²/a² − (x−h)²/b² = 1",
+e:"<strong>Whichever variable is positive tells you which direction it opens.</strong> x positive → opens left/right. y positive → opens up/down. The transverse axis (connecting the vertices) is always along the positive term's axis."},
+
+{t:"Hyperbola",q:"For a hyperbola, how do you find c and what does it represent?",
+a:"c² = a² + b²; c = distance from center to each focus",
+e:"Unlike ellipses (c²=a²−b²), hyperbolas ADD: c²=a²+b². So c>a always. Eccentricity e=c/a>1 always for hyperbolas. The foci are farther from the center than the vertices."},
+
+{t:"Hyperbola",q:"State the asymptote formulas for horizontal and vertical hyperbolas.",
+a:"Horizontal: y−k = ±(b/a)(x−h)\nVertical: y−k = ±(a/b)(x−h)",
+e:"For horizontal: slope = ±b/a (b over a). For vertical: slope = ±a/b (a over b — flipped). Memory: for horizontal, a is under x so it's in the denominator of the slope. The asymptotes pass through the center (h,k)."},
+
+{t:"Hyperbola",q:"What is the key difference between the ellipse formula c²=a²−b² and the hyperbola formula c²=a²+b²?",
+a:"Ellipse subtracts (c<a); Hyperbola adds (c>a)",
+e:"For ellipses, foci are inside the curve, closer to center than vertices: c<a. For hyperbolas, foci are outside the vertices: c>a. This is why e<1 for ellipses and e>1 for hyperbolas."},
+
+// RADIANS & DEGREES
+{t:"Radians & Degrees",q:"How do you convert degrees to radians and radians to degrees?",
+a:"Degrees → Radians: × π/180\nRadians → Degrees: × 180/π",
+e:"Think of it as a unit conversion. π radians = 180°, so multiplying by π/180 or 180/π converts while canceling the unwanted unit. Always simplify by finding GCD of numerator and denominator."},
+
+{t:"Radians & Degrees",q:"What are the radian equivalents of 30°, 45°, 60°, 90°, 120°, 135°, 150°, 180°, 270°, 360°?",
+a:"π/6, π/4, π/3, π/2, 2π/3, 3π/4, 5π/6, π, 3π/2, 2π",
+e:"Pattern for multiples of 30° (π/6): n×π/6. For 45° (π/4): n×π/4. For 60° (π/3): n×π/3. These are the angles you'll encounter most — memorize them."},
+
+{t:"Radians & Degrees",q:"What is the complement and supplement of an angle θ?",
+a:"Complement: π/2 − θ (or 90° − θ)\nSupplement: π − θ (or 180° − θ)",
+e:"Complement only exists if θ < π/2 (less than 90°). Supplement only exists if θ < π (less than 180°). If an angle is exactly 90° it has no complement (the complement would be 0°, which is debatable, but typically excluded)."},
+
+// UNIT CIRCLE & TRIG FUNCTIONS
+{t:"Unit Circle",q:"State sin, cos, tan for 0°, 30°, 45°, 60°, 90°.",
+a:"0°: 0,1,0 | 30°: ½,√3/2,√3/3 | 45°: √2/2,√2/2,1 | 60°: √3/2,½,√3 | 90°: 1,0,undef",
+e:"Memory for sin: 0, 1/2, √2/2, √3/2, 1 — numerators go 0,1,√2,√3,2 (divide all by 2). Cos is sin in reverse. Tan = sin/cos. These five angles in QI are the foundation for every other standard angle."},
+
+{t:"Unit Circle",q:"What is the ASTC rule and what does it tell you?",
+a:"All, Sin, Tan, Cos — which functions are positive in each quadrant (QI→QIV)",
+e:"<strong>QI:</strong> All positive. <strong>QII:</strong> Sin (and csc) positive. <strong>QIII:</strong> Tan (and cot) positive. <strong>QIV:</strong> Cos (and sec) positive.<br>Mnemonic: <em>All Students Take Calculus</em>. Apply by finding the reference angle first, then attaching the correct sign."},
+
+{t:"Unit Circle",q:"How do you find all six trig functions from a terminal point (x, y)?",
+a:"r = √(x²+y²), then: sin=y/r, cos=x/r, tan=y/x, csc=r/y, sec=r/x, cot=x/y",
+e:"The terminal point is on a circle of radius r, not necessarily the unit circle. x and y can be negative (that's how you get negative trig values). The signs of x and y tell you the quadrant; the formulas handle the signs automatically."},
+
+{t:"Unit Circle",q:"What is the reference angle for 7π/4, 5π/6, 4π/3, and 11π/6?",
+a:"7π/4: π/4 | 5π/6: π/6 | 4π/3: π/3 | 11π/6: π/6",
+e:"Reference angle = acute angle between the terminal side and the x-axis.<br>QI: ref = θ. QII: ref = π−θ. QIII: ref = θ−π. QIV: ref = 2π−θ.<br>Then use ASTC to assign the correct sign."},
+
+// INVERSE TRIG
+{t:"Inverse Trig",q:"What are the domains and ranges of arcsin, arccos, arctan?",
+a:"arcsin: domain [−1,1], range [−π/2, π/2]\narccos: domain [−1,1], range [0, π]\narctan: domain (−∞,∞), range (−π/2, π/2)",
+e:"The range restrictions come from restricting the original function to make it one-to-one (so the inverse exists). arcsin and arctan output in QI and QIV (roughly). arccos outputs in QI and QII only — so arccos is never negative."},
+
+{t:"Inverse Trig",q:"How do you simplify a composed expression like sin(arctan(x/4))?",
+a:"Let θ = arctan(x/4). Draw the right triangle with tan θ = x/4. Then read off sin θ from the triangle.",
+e:"Step 1: Set the inner inverse trig equal to θ and extract the ratio. Step 2: Identify opposite, adjacent, find hypotenuse with Pythagorean theorem. Step 3: Read off the outer trig function.<br>Example: tan θ = x/4 → opp=x, adj=4, hyp=√(x²+16). sin θ = x/√(x²+16)."},
+
+{t:"Inverse Trig",q:"Why is arccos(−1/2) = 2π/3 and not 4π/3?",
+a:"arccos only returns values in [0, π]. 4π/3 is outside that range.",
+e:"cos is negative in both QII and QIII, so cos = −1/2 at 2π/3 (120°) AND 4π/3 (240°). But arccos is restricted to [0,π], which only includes QI and QII. So the answer must be 2π/3. Always check which quadrant is allowed by the range."},
+
+// VECTORS
+{t:"Vectors",q:"How do you find the component form of a vector from magnitude and direction angle?",
+a:"⟨|v|cos θ, |v|sin θ⟩",
+e:"The direction angle θ is measured counterclockwise from the positive x-axis. cos θ gives the x-component (horizontal), sin θ gives the y-component (vertical). If θ is in QII or QIII, cos θ will be negative, giving a negative x-component automatically."},
+
+{t:"Vectors",q:"How do you find the direction angle of a vector ⟨a, b⟩?",
+a:"θ = arctan(b/a), then adjust for the correct quadrant.",
+e:"arctan only returns values in (−π/2, π/2) — i.e., QI or QIV. If the vector is in QII or QIII (a < 0), add 180° to the arctan result. If in QIV (b < 0, a > 0), the arctan gives a negative angle; add 360° if you want a positive direction angle."},
+
+{t:"Vectors",q:"What does the dot product u·v = 0 tell you about the two vectors?",
+a:"The vectors are orthogonal (perpendicular, 90° angle between them).",
+e:"cos θ = (u·v)/(|u||v|). If u·v = 0, then cos θ = 0, so θ = 90°. This is the fastest way to check perpendicularity — no need to compute the full angle."},
+
+{t:"Vectors",q:"How do you check if two vectors ⟨a, b⟩ and ⟨c, d⟩ are parallel?",
+a:"Check if a/c = b/d (corresponding component ratios are equal).",
+e:"Parallel means one is a scalar multiple of the other: ⟨c,d⟩ = k⟨a,b⟩ for some k. This means c=ka and d=kb, so c/a = d/b = k. If the ratios aren't equal (and the dot product isn't zero), they're neither parallel nor orthogonal."},
+
+{t:"Vectors",q:"State the formula for the angle between two vectors.",
+a:"cos θ = (u·v) / (|u||v|); then θ = arccos of that result",
+e:"The dot product encodes the cosine of the angle. Compute u·v, divide by the product of the magnitudes, then take arccos. Result is always in [0°, 180°] since arccos returns [0, π]."},
+
+{t:"Vectors",q:"How do you find a unit vector in the direction of v?",
+a:"û = v / |v|  — divide each component by the magnitude",
+e:"The unit vector points the same direction as v but has magnitude exactly 1. If v = ⟨3,4⟩, |v|=5, so û = ⟨3/5, 4/5⟩. Check: √(9/25+16/25)=√(25/25)=1 ✓. To get a vector of magnitude k in the direction of v: k·û."},
+
+// LIMITS
+{t:"Limits",q:"What are the three main strategies for evaluating limits?",
+a:"1. Direct substitution\n2. Factor & cancel (for 0/0 with rationals)\n3. Rationalize the numerator (for 0/0 with radicals)",
+e:"Always try direct substitution first. If you get 0/0, that's indeterminate — factor or rationalize. If you get a/0 (a≠0), the limit is ±∞ (DNE). If you get 0/a, the limit is 0."},
+
+{t:"Limits",q:"How do you evaluate lim(x→∞) for a rational function?",
+a:"Compare degrees: same→coefficient ratio; num<denom→0; num>denom→±∞",
+e:"Divide all terms by the highest power of x in the denominator. Terms with x in the denominator vanish as x→∞. Only the leading terms survive. This gives the ratio of leading coefficients when degrees match."},
+
+{t:"Limits",q:"State the two fundamental trig limits.",
+a:"lim(x→0) sin(x)/x = 1\nlim(x→0) (1−cos x)/x = 0",
+e:"These can't be computed by direct substitution (both give 0/0). They're proven by the squeeze theorem. The first is the most important — it underlies all trig derivatives. For lim sin(kx)/x: rewrite as k·[sin(kx)/(kx)] → k·1 = k."},
+
+{t:"Limits",q:"What does it mean for a limit to not exist (DNE)?",
+a:"Left and right limits are unequal, or both sides go to ±∞",
+e:"Cases where limit DNE:<br>1. Left limit ≠ right limit (e.g., |x|/x at x=0: left=−1, right=+1).<br>2. The function oscillates with no settled value (e.g., sin(1/x) at x=0).<br>3. The function diverges to ±∞ (not a finite value, though we write lim=∞ to describe behavior)."},
+
+{t:"Limits",q:"How do you rationalize the numerator to find lim(x→a) of (√f(x) − c)/(x−a)?",
+a:"Multiply top and bottom by (√f(x) + c). The numerator becomes f(x) − c².",
+e:"Example: (√(x+7)−3)/(x−2). Multiply by (√(x+7)+3)/(√(x+7)+3). Numerator: (x+7)−9=x−2. Denominator: (x−2)(√(x+7)+3). Cancel (x−2). Evaluate at x=2: 1/(√9+3)=1/6."},
+
+];
+
+const FTOPICS=["All",...[...new Set(FCARDS.map(c=>c.t))]];
+let fActiveTopic="All", fDeck=[], fIdx=0, fFlipped=false;
+let fSeen=new Set(), fGot=new Set(), fLearn=new Set();
+
+function fFiltered(){return fActiveTopic==="All"?[...FCARDS]:FCARDS.filter(c=>c.t===fActiveTopic);}
+
+function fBuildTabs(){
+  const counts={};FCARDS.forEach(c=>{counts[c.t]=(counts[c.t]||0)+1;});
+  document.getElementById("ftabs").innerHTML=FTOPICS.map(t=>{
+    const n=t==="All"?FCARDS.length:counts[t]||0;
+    return`<button class="tab${fActiveTopic===t?" on":""}" onclick="fSetTopic(${JSON.stringify(t)})">${t}<span class="count-badge">${n}</span></button>`;
+  }).join("");
+}
+function fSetTopic(t){fActiveTopic=t;fDeck=shuffle(fFiltered());fIdx=0;fFlipped=false;fSeen=new Set();fGot=new Set();fLearn=new Set();fBuildTabs();fShow();}
+function fShuffleDeck(){fDeck=shuffle(fFiltered());fIdx=0;fFlipped=false;fSeen=new Set();fShow();}
+function fResetProgress(){fSeen=new Set();fGot=new Set();fLearn=new Set();fIdx=0;fFlipped=false;fShow();}
+
+function fShow(){
+  if(!fDeck.length)return;
+  const c=fDeck[fIdx];
+  document.getElementById("fFrontTag").textContent=c.t+" — "+(fIdx+1)+" / "+fDeck.length;
+  document.getElementById("fFrontQ").textContent=c.q;
+  document.getElementById("fBackTag").textContent=c.t;
+  document.getElementById("fBackAns").textContent=c.a;
+  document.getElementById("fBackExpl").innerHTML=c.e;
+  const ci=document.getElementById("fCardInner");
+  ci.classList.remove("flipped");fFlipped=false;
+  document.getElementById("fMarkRow").style.display="none";
+  fSeen.add(fActiveTopic+"_"+fIdx);
+  fUpdateBar();fUpdateStats();
+}
+function fFlipCard(){
+  fFlipped=!fFlipped;
+  const ci=document.getElementById("fCardInner");
+  if(fFlipped){ci.classList.add("flipped");document.getElementById("fMarkRow").style.display="flex";}
+  else{ci.classList.remove("flipped");document.getElementById("fMarkRow").style.display="none";}
+}
+function fMark(ok){
+  const k=fActiveTopic+"_"+fIdx;
+  if(ok){fGot.add(k);fLearn.delete(k);}else{fLearn.add(k);fGot.delete(k);}
+  fUpdateStats();fNext();
+}
+function fNext(){fIdx=(fIdx+1)%fDeck.length;fFlipped=false;fShow();}
+function fPrev(){fIdx=(fIdx-1+fDeck.length)%fDeck.length;fFlipped=false;fShow();}
+function fUpdateBar(){
+  const t=fDeck.length,s=fSeen.size;
+  document.getElementById("fBarFill").style.width=(t?s/t*100:0)+"%";
+  document.getElementById("fBarTxt").textContent=s+" / "+t;
+}
+function fUpdateStats(){
+  document.getElementById("fStatGot").textContent=fGot.size;
+  document.getElementById("fStatLearn").textContent=fLearn.size;
+  document.getElementById("fStatSeen").textContent=fSeen.size;
+}
+
+// init
+fBuildTabs();fDeck=shuffle(FCARDS);fShow();
 buildTabs();deck=shuffle(CARDS);show();
 </script>
 </body>
